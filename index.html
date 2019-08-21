@@ -8,7 +8,8 @@
   <style>
   body {background:green;}
   div.a {position:absolute;background:red;color:white;top:40%;left:40%;padding:1vw;font-size:3vw;}
-  div.s {display:inline-block; box-sizing:border-box; border-style:solid; border-color:yellow; height:10vw; width:12%;}
+  div.t {display:inline-block; width:12%;}
+  div.s {float:left; height:10vw; width:80%; border-style:solid; border-color:yellow;}
   div.c {display:inline-block; position:relative; width:10vw; margin:0.5vw; height:80vw; border-style:solid; border-color:green;}
   div.r {line-height:90%; letter-spacing:80%; font-size:14vw; color:red; background:white;}
   div.b {line-height:90%; letter-spacing:80%; font-size:14vw; background:white;}
@@ -17,14 +18,14 @@
 </head>
 <body>
   <p><button onclick="startGame()">Shuffle</button></p>
-  <div id=s0 class=s onclick="tempAlert('Freecell 0',1000)"></div>
-  <div id=s1 class=s onclick="alert('Freecell 1')"></div>
-  <div id=s2 class=s onclick="alert('Freecell 2')"></div>
-  <div id=s3 class=s onclick="alert('Freecell 3')"></div>
-  <div id=s4 class=s onclick="alert('Ace 0')"></div>
-  <div id=s5 class=s onclick="alert('Ace 1')"></div>
-  <div id=s6 class=s onclick="alert('Ace 2')"></div>
-  <div id=s7 class=s onclick="alert('Ace 3')"></div>
+  <div class=t><div id=s0 class=s onclick="tempAlert('Freecell 0',1000)"></div></div>
+  <div class=t><div id=s1 class=s onclick="alert('Freecell 1')"></div></div>
+  <div class=t><div id=s2 class=s onclick="alert('Freecell 2')"></div></div>
+  <div class=t><div id=s3 class=s onclick="alert('Freecell 3')"></div></div>
+  <div class=t><div id=s4 class=s onclick="alert('Ace 0')"></div></div>
+  <div class=t><div id=s5 class=s onclick="alert('Ace 1')"></div></div>
+  <div class=t><div id=s6 class=s onclick="alert('Ace 2')"></div></div>
+  <div class=t><div id=s7 class=s onclick="alert('Ace 3')"></div></div>
   <div id=c0 class=c onclick="alert('Col 0')"></div>
   <div id=c1 class=c onclick="alert('Col 1')"></div>
   <div id=c2 class=c onclick="alert('Col 2')"></div>

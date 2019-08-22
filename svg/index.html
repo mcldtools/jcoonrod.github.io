@@ -19,7 +19,7 @@
 </head>
   
 <body>
-  <p><a href=/>&#9776;</a> SVG Freecell 0.1d <button onclick="startGame()">Shuffle</button></p>
+  <p><a href=/>&#9776;</a> SVG Freecell 0.1e <button onclick="startGame()">Shuffle</button></p>
   <div class=row>
   <div id=s0 class=s onclick="tempAlert('Freecell 0',1000)"></div>
   <div id=s1 class=s onclick="alert('Freecell 1')"></div>
@@ -65,17 +65,17 @@
       + '<text x="145" y="50" font-size="45"'+f+'>'+suits[suit]+'</text>'
       + '</svg>';
   }    
-function popStack(j){
-  column=document.getElementById("c"+j);
-  topCard = column.lastChild;
-  topID=topCard.id; // what card is it? v0...
-  if(topCard) {
-    column.removeChild(column.lastChild);
-    freecell=document.getElementById("s0");
-    console.log(topID);
-    freecell.innerHTML=topCard.innerHTML; // move the svg to this div
+  function popStack(j){
+    column=document.getElementById("c"+j);
+    topCard = column.lastChild;
+    topID=topCard.id; // what card is it? v0...
+    if(topCard) {
+      column.removeChild(column.lastChild);
+      freecell=document.getElementById("s0");
+      console.log(topID);
+      freecell.innerHTML=topCard.innerHTML; // move the svg to this div
+    }
   }
-}
 
 // a function to shuffle the deck;
   function shuffle(){
@@ -90,9 +90,8 @@ function popStack(j){
     // first make sure the board is clear by removing any children
     for(j=0;j<8;j++) {
       const column=document.getElementById("c"+j);
-      while (column.firstChild) {
-      column.removeChild(column.firstChild);
-    }    
+      while (column.firstChild) column.removeChild(column.firstChild);
+    }
     // next, append cards to each column in turn  
     for(i=0;i<52;i++) {
       const column=document.getElementById("c"+j);

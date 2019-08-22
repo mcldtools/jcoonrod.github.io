@@ -45,10 +45,11 @@
 <script>
 // Set up a 1-d array of the unicode values for the cards 0-51
 // Note - Unicode sets up 16 cards per suit, including two queens
+// Unlike the old game, I want to only use the DOM 
   cards = []; // array of card div svg objects
   deck = []; // sort order for the cards
-  aces = [[],[],[],[]]; // 2-d stacks in the aces positions
-  freecells = [-1,-1,-1,-1]; // 4 free cells -1 indicates they are free
+  freecells = [-1,-1,-1,-1];
+  aces = [-1,-1,-1,-1];
   suits = ["&spadesuit;","&heartsuit;","&diamondsuit;","&clubsuit;"];
   vals = ['A','2','3','4','5','6','7','8','9','10','J','Q','K'];
 
@@ -63,17 +64,39 @@
       + '<text x="15" y="45" font-size="45">'+vals[val]+'</text>'
       + '<text x="145" y="50" font-size="45"'+f+'>'+suits[suit]+'</text>'
       + '</svg>';
-  }    
-  function popStack(j){
+  }
+  // Run through to see if any top cards can jump to the ace pile
+  function topCardId(j){
     column=document.getElementById("c"+j);
     topCard = column.lastChild;
-    topID=topCard.id; // what card is it? v0...
-    if(topCard) {
-      column.removeChild(column.lastChild);
-      freecell=document.getElementById("s0");
-      console.log(topID);
-      freecell.innerHTML=topCard.innerHTML; // move the svg to this div
+    return topCard.id; // what card is it? v0...
+  }
+  function getSuit(x) return Math.floor(x.substring(1).parseInt()/13); 
+  function getVal(x) return x.substring(1).parseInt() % 13; 
+  function tryAce(){
+    nmove=0; // This gets incremented and returned
+    for(j=0;j<8;j++) {
+      topID=topCardId(j);
+      if(topID) { // is there a top card in this column?
+        suit=getSuit(topID);
+        val=getVal(topID);
+        if(aces[suit]=val-1) {
+          nmove++;
+          aces[suit]++;
+          popCard(j,topID,"a"+suit);
+        }
+      }
     }
+    return nmove;
+  }
+  function popTop(j) popCard(j,topCardId(j),"a0");
+  // Move a card from the top of a column to a new spot
+  function popCard(j,srcId,destId){
+    column=document.getElementById("c"+j);
+    column.removeChild(column.lastChild);
+    dest=document.getElementById(destId);
+    console.log(srcId+" "+destId);
+    dest.innerHTML=src.innerHTML; // move the svg to this div
   }
 
 // a function to shuffle the deck;
@@ -111,6 +134,7 @@
   function startGame(){
     shuffle();
     deal();
+    while(tryAce());
   }
   function tempAlert(msg,duration) { // adapted from Travis J on stackoverflow
      var el = document.createElement("div");

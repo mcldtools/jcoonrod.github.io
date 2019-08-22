@@ -87,7 +87,7 @@
   function showStacks(){
     stacks.forEach(showStack);
   }
-function showStack(stack,j){
+function showStack(stack,j){ // modified for svg objects
   // first strip off the existing children
   const column=document.getElementById("c"+j);
   while (column.firstChild) {
@@ -97,12 +97,10 @@ function showStack(stack,j){
   for(i=0;i<n;i++) {
     var card=document.createElement("div");
     var cardNo=stack[i];
-    var c='b'; if(cardNo>12 && cardNo<39) c='r'; // are the cards red or black?
-    card.className=c;
-    uni="&#"+cards[cardNo]+";";
-    card.innerHTML=uni;
+    card.innerHTML=cards[i];
     card.style.zindex=i.toString();
     card.style.position='absolute';
+    card.style.width='100%';
     y=i*3;
     card.style.top=y.toString()+"vw";
     column.appendChild(card);

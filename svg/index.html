@@ -17,8 +17,9 @@
   </style>
   <link rel="icon" href="/favicon.png" type="image/x-icon" />
 </head>
+  
 <body>
-  <p><a href=/>&#9776;</a> SVG Freecell 0.1b <button onclick="startGame()">Shuffle</button></p>
+  <p><a href=/>&#9776;</a> SVG Freecell 0.1c <button onclick="startGame()">Shuffle</button></p>
   <div class=row>
   <div id=s0 class=s onclick="tempAlert('Freecell 0',1000)"></div>
   <div id=s1 class=s onclick="alert('Freecell 1')"></div>
@@ -40,6 +41,7 @@
   <div id=c6 class=c onclick="popStack(6)"></div>
   <div id=c7 class=c onclick="popStack(7)"></div>
 </div>
+
 <script>
 // Set up a 1-d array of the unicode values for the cards 0-51
 // Note - Unicode sets up 16 cards per suit, including two queens
@@ -70,13 +72,10 @@ function popStack(j){
   if(topCard) {
     column.removeChild(column.lastChild);
     freecell=document.getElementById("s0");
-    console.log(topID+" "+freecell);
+    console.log(topID);
     freecell.innerHTML=topCard.innerHTML; // move the svg to this div
   }
 }
-                       
-
-    
 
 // a function to shuffle the deck;
   function shuffle(){
@@ -111,7 +110,7 @@ function showStack(stack,j){ // modified for svg objects
     var card=document.createElement("div");
     var cardNo=stack[i];
     card.innerHTML=cards[cardNo];
-    card.id="v"+CardNo;
+    card.id="v"cardNo;
     card.style.zindex=i.toString();
     card.style.position='absolute';
     card.style.width='100%';

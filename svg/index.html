@@ -49,7 +49,7 @@
   deck = []; // sort order for the cards
   aces = [[],[],[],[]]; // 2-d stacks in the aces positions
   freecells = [-1,-1,-1,-1]; // 4 free cells -1 indicates they are free
-  stacks = [[],[],[],[],[],[],[],[]]; // 8 column stacks of cards
+//  stacks = [[],[],[],[],[],[],[],[]]; // 8 column stacks of cards - remove - this is duplicative of dom objectives
   suits = ["&spadesuit;","&heartsuit;","&diamondsuit;","&clubsuit;"];
   vals = ['A','2','3','4','5','6','7','8','9','10','J','Q','K'];
 
@@ -85,40 +85,29 @@ function popStack(j){
       m=deck[j]; deck[j]=deck[k]; deck[k]=m;
     }
   }
-// a function to deal the deck into the 8 stacks
+// a function to deal the deck into child objects
   function deal(){
+    // first make sure the board is clear by removing any children
     for(j=0;j<8;j++) {
-      stacks[j].length=0;
+      const column=document.getElementById("c"+j);
+      while (column.firstChild) {
+      column.removeChild(column.firstChild);
+    }    
+    // next, append cards to each column in turn  
+    for(i=0;i<52;i++) {
+      const column=document.getElementById("c"+j);
+      var card=document.createElement("div");
+      cardNo=deck[i];
+      card.innerHTML=cards[cardNo];
+      card.id="v"+cardNo;
+      card.style.zindex=i.toString();
+      card.style.position='absolute';
+      card.style.width='100%';
+      y=i*3;
+      card.style.top=y.toString()+"vw";
+      column.appendChild(card);
     }
-    for(n=0;n<52;n++){
-      j=n % 8;
-      stacks[j].push(deck[n]);
-    }
   }
-// a function to show the stacks
-  function showStacks(){
-    stacks.forEach(showStack);
-  }
-function showStack(stack,j){ // modified for svg objects
-  // first strip off the existing children
-  const column=document.getElementById("c"+j);
-  while (column.firstChild) {
-    column.removeChild(column.firstChild);
-  }
-  n=stack.length;
-  for(i=0;i<n;i++) {
-    var card=document.createElement("div");
-    var cardNo=stack[i];
-    card.innerHTML=cards[cardNo];
-    card.id="v"+cardNo;
-    card.style.zindex=i.toString();
-    card.style.position='absolute';
-    card.style.width='100%';
-    y=i*3;
-    card.style.top=y.toString()+"vw";
-    column.appendChild(card);
-  }
-}
   function startGame(){
     shuffle();
     deal();

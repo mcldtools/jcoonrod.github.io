@@ -55,13 +55,11 @@
     deck[n]=n; // start out without a shuffle
     var suit=Math.floor(n/13);
     var val = n % 13;
-    card='<svg viewBox="0 0 200 280">'
+    cards[n]='<svg viewBox="0 0 200 280">'
       +'<rect x="2" y="2" rx="20" ry="20" width="194" height="274" style="fill:white;stroke:black;stroke-width:4;" />'
       +'<text x="15" y="45" font-size="40">'+vals[val]+'</text>'
       + '<text x="145" y="50" font-size="60">'+suits[suit]+'</text>'
       + '<text x="60" y="180" font-size="150">'+suits[suit]+'</text></svg>';
-    console.log(card);
-    cards[n]=card;
   }    
  
 
@@ -97,7 +95,7 @@ function showStack(stack,j){ // modified for svg objects
   for(i=0;i<n;i++) {
     var card=document.createElement("div");
     var cardNo=stack[i];
-    card.innerHTML=cards[i];
+    card.innerHTML=cards[cardNo];
     card.style.zindex=i.toString();
     card.style.position='absolute';
     card.style.width='100%';

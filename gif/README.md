@@ -1,2 +1,2 @@
 # My Original One-click Freecell
-Uses 52 gifs created as screenshots from an old microsoft version
+Created in February 2002 - uses 52 gifs created as screenshots from an early Microsoft Windows version

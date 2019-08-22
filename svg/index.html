@@ -19,7 +19,7 @@
 </head>
   
 <body>
-  <p><a href=/>&#9776;</a> SVG Freecell 0.1i <button onclick="startGame()">Shuffle</button></p>
+  <p><a href=/>&#9776;</a> SVG Freecell 0.1j <button onclick="startGame()">Shuffle</button></p>
   <div class=row>
   <div id=s0 class=s onclick="tempAlert('Freecell 0',1000)"></div>
   <div id=s1 class=s onclick="alert('Freecell 1')"></div>
@@ -93,10 +93,9 @@
   // Move a card from the top of a column to a new spot
   function popCard(j,srcId,destId){
     column=document.getElementById("c"+j);
-    column.removeChild(column.lastChild);
     dest=document.getElementById(destId);
+    column.removeChild(column.lastChild);
     console.log(srcId+" "+destId);
-    dest.innerHTML=src.innerHTML; // move the svg to this div
   }
 
 // a function to shuffle the deck;

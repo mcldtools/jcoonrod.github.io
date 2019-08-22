@@ -6,7 +6,8 @@
   <meta name="viewport" content="width=device-width">
   <title>Unicode Cards</title>
   <style>
-  body {background:green;padding:0;margin:0}
+    body {background:green;padding:0;margin:0;font-family:sans-serif;}
+    p, p>a {color:white;}
   div.row {display:flex; flex-wrap:nowrap; flex-direction:row; justify-content:space-evenly;}
   div.a {position:absolute;background:red;color:white;top:40%;left:40%;padding:1vw;font-size:3vw;}
   div.s {width:10%;height:14vw; background:lightgreen;}
@@ -17,7 +18,7 @@
   <link rel="icon" href="/favicon.png" type="image/x-icon" />
 </head>
 <body>
-  <p><a href=/svg>&#9776;</a> <button onclick="startGame()">Shuffle</button></p>
+  <p><a href=/svg>&#9776;</a> Unicode Freecell 1<button onclick="startGame()">Shuffle</button></p>
   <div class=row>
   <div id=s0 class=s onclick="tempAlert('Freecell 0',1000)"></div>
   <div id=s1 class=s onclick="alert('Freecell 1')"></div>

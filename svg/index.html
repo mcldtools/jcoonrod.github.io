@@ -19,7 +19,7 @@
 </head>
   
 <body>
-  <p><a href=/>&#9776;</a> SVG Freecell 0.1g <button onclick="startGame()">Shuffle</button></p>
+  <p><a href=/>&#9776;</a> SVG Freecell 0.1h <button onclick="startGame()">Shuffle</button></p>
   <div class=row>
   <div id=s0 class=s onclick="tempAlert('Freecell 0',1000)"></div>
   <div id=s1 class=s onclick="alert('Freecell 1')"></div>
@@ -94,7 +94,7 @@
     // next, append cards to each column in turn  
     for(i=0;i<52;i++) {
       j=i%8;
-      z=1+floor(i/8); // how far down in the stack?
+      z=1+Math.floor(i/8); // how far down in the stack?
       const column=document.getElementById("c"+j);
       var card=document.createElement("div");
       cardNo=deck[i];

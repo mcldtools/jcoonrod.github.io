@@ -18,7 +18,7 @@
   <link rel="icon" href="/favicon.png" type="image/x-icon" />
 </head>
 <body>
-  <p><a href=/>&#9776;</a> SVG Freecell 7 <button onclick="startGame()">Shuffle</button></p>
+  <p><a href=/>&#9776;</a> SVG Freecell 0.1 <button onclick="startGame()">Shuffle</button></p>
   <div class=row>
   <div id=s0 class=s onclick="tempAlert('Freecell 0',1000)"></div>
   <div id=s1 class=s onclick="alert('Freecell 1')"></div>
@@ -31,14 +31,14 @@
 </div>
 <div class=row><h2>&nbsp;</h2></div>
 <div class=row>
-  <div id=c0 class=c onclick="alert('Col 0')"></div>
-  <div id=c1 class=c onclick="alert('Col 1')"></div>
-  <div id=c2 class=c onclick="alert('Col 2')"></div>
-  <div id=c3 class=c onclick="alert('Col 3')"></div>
-  <div id=c4 class=c onclick="alert('Col 4')"></div>
-  <div id=c5 class=c onclick="alert('Col 5')"></div>
-  <div id=c6 class=c onclick="alert('Col 6')"></div>
-  <div id=c7 class=c onclick="alert('Col 7')"></div>
+  <div id=c0 class=c onclick="popStack(0)"></div>
+  <div id=c1 class=c onclick="popStack(1)"></div>
+  <div id=c2 class=c onclick="popStack(2)"></div>
+  <div id=c3 class=c onclick="popStack(3)"></div>
+  <div id=c4 class=c onclick="popStack(4)"></div>
+  <div id=c5 class=c onclick="popStack(5)"></div>
+  <div id=c6 class=c onclick="popStack(6)"></div>
+  <div id=c7 class=c onclick="popStack(7)"></div>
 </div>
 <script>
 // Set up a 1-d array of the unicode values for the cards 0-51
@@ -63,7 +63,21 @@
       + '<text x="145" y="50" font-size="45"'+f+'>'+suits[suit]+'</text>'
       + '</svg>';
   }    
- 
+function popStack(j){
+  n=stacks[j].length; // is there anything here?
+  if(!n) { tempAlert("Nothing to move.",500);}
+  else {
+    const column=document.getElementById("c"+j);
+    column.removeChild(column.lastChild);
+    freecell=document.getElementById["s0"];
+    var cardNo=stacks[j][n-1];
+    freecell.innerHTML=cards[cardNo];
+    stacks[j].length=n-1;
+  }
+}
+                       
+
+    
 
 // a function to shuffle the deck;
   function shuffle(){

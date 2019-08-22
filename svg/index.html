@@ -68,8 +68,9 @@ function popStack(j){
   var topCard = column.lastChild;
   if(topCard) {
     column.removeChild(column.lastChild);
-    freecell=document.getElementById["s0"];
-    freecell.appendChild(topCard);
+    const freecell=document.getElementById["s0"];
+    console.log(freecell);
+    freecell.innterHTML=topCard;
   }
 }
                        

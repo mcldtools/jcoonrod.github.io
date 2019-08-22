@@ -110,7 +110,7 @@ function showStack(stack,j){ // modified for svg objects
     var card=document.createElement("div");
     var cardNo=stack[i];
     card.innerHTML=cards[cardNo];
-    card.id="v"cardNo;
+    card.id="v"+cardNo;
     card.style.zindex=i.toString();
     card.style.position='absolute';
     card.style.width='100%';

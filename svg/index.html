@@ -56,7 +56,7 @@
     var suit=Math.floor(n/13);
     var f=''; if(suit==1 || suit==2) f=' fill="red"'; // optionally paint the red suits red
     var val = n % 13;
-    cards[n]='<svg id="'+n+'" viewBox="0 0 200 280">'
+    cards[n]='<svg id="v'+n+'" viewBox="0 0 200 280">'
       + '<rect x="2" y="2" rx="20" ry="20" width="194" height="274" style="fill:white;stroke:black;stroke-width:4;" />'
       + '<text font-size="120" x="97" y="137" text-anchor="middle" alignment-baseline="central"'+f+'>'+suits[suit]+'</text>'
       + '<text x="15" y="45" font-size="45">'+vals[val]+'</text>'
@@ -64,13 +64,14 @@
       + '</svg>';
   }    
 function popStack(j){
-  const column=document.getElementById("c"+j);
-  var topCard = column.lastChild;
+  column=document.getElementById("c"+j);
+  topCard = column.lastChild;
+  topID=topCard.id; // what card is it? v0...
   if(topCard) {
     column.removeChild(column.lastChild);
-    const freecell=document.getElementById["s0"];
-    console.log(freecell);
-    freecell.innterHTML=topCard;
+    freecell=document.getElementById("s0");
+    console.log(topID+" "+freecell);
+    freecell.innerHTML=topCard;
   }
 }
                        

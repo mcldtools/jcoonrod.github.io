@@ -19,7 +19,7 @@
 </head>
   
 <body>
-  <p><a href=/>&#9776;</a> SVG Freecell 0.1o <button onclick="startGame()">Shuffle</button></p>
+  <p><a href=/>&#9776;</a> SVG Freecell 0.1p <button onclick="startGame()">Shuffle</button></p>
   <div class=row>
   <div id=s0 class=s onclick="tempAlert('Freecell 0',1000)"></div>
   <div id=s1 class=s onclick="alert('Freecell 1')"></div>
@@ -90,14 +90,18 @@
     }
     return nmove;
   }
+
   // Move a card from the top of a column to a new spot
   const popStack = j => popCard(j,topCardId(j),"a0");
+
+  // Move a card from one place to another
   function popCard(j,srcId,destId){
     console.log("Pop "+srcId+" "+destId);
     column=document.getElementById("c"+j);
     src=document.getElementById(srcId);
     dest=document.getElementById(destId);
-    dest.innerHTML=src.innerHTML;
+    console.log("Dest "+dest);
+    if(dest) dest.innerHTML=src.innerHTML;
     column.removeChild(column.lastChild);
     return 1;
   }

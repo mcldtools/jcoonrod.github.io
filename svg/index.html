@@ -19,7 +19,7 @@
 </head>
   
 <body>
-  <p><a href=/>&#9776;</a> SVG Freecell 0.1s <button onclick="startGame()">Shuffle</button></p>
+  <p><a href=/>&#9776;</a> SVG Freecell 0.1t <button onclick="startGame()">Shuffle</button></p>
   <div class=row>
   <div id=s0 class=s onclick="tempAlert('Freecell 0',1000)"></div>
   <div id=s1 class=s onclick="alert('Freecell 1')"></div>
@@ -95,7 +95,7 @@
   function popStack(j) {
     tryFreeCells(j); // try this first
   }
-  tryFreeCells(j){
+  function tryFreeCells(j){
     free=-1; 
     for(k=0;k<4;k++) if(freecells[k]==-1) free=k;
     if(free>-1) {

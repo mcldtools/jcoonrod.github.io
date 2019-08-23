@@ -20,7 +20,7 @@
 </head>
   
 <body>
-  <p><a href=/>&#9776;</a> SVG Freecell 0.2a <button onclick="startGame()">Shuffle</button></p>
+  <p><a href=/>&#9776;</a> SVG Freecell 0.2b <button onclick="startGame()">Shuffle</button></p>
   <div class=row>
   <div id=s0 class=s onclick="dropFree(0)"></div>
   <div id=s1 class=s onclick="dropFree(1)"></div>
@@ -57,7 +57,7 @@
 
 	// FROM HERE FORWARD are function definitions - one being worked on at top
 	function dropFree(k){ // Drop the card from freecell k to a column
-		var cardNo=freecell[k];
+		var cardNo=freecells[k];
 		if(cardNo>-1) {
 			suit=Math.floor(cardNo/13); val=cardNo % 13; color=(suit==0 || suit==3) ? 'b' : 'r';
 			// run through the top cards to see if it can drop down to them
@@ -69,7 +69,7 @@
 				if((val==destVal+1) && (color !== destColor)) {
 					console.log("Append "+cardNo+" to "+j);
 					appendCard(cardNo,j);
-					freecell[k]=-1;
+					freecells[k]=-1;
 					document.getElementById("s"+k).innerHTML="";
 					nmove=1;
 				}

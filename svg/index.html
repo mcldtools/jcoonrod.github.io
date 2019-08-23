@@ -19,7 +19,7 @@
 </head>
   
 <body>
-  <p><a href=/>&#9776;</a> SVG Freecell 0.1l <button onclick="startGame()">Shuffle</button></p>
+  <p><a href=/>&#9776;</a> SVG Freecell 0.1m <button onclick="startGame()">Shuffle</button></p>
   <div class=row>
   <div id=s0 class=s onclick="tempAlert('Freecell 0',1000)"></div>
   <div id=s1 class=s onclick="alert('Freecell 1')"></div>
@@ -69,7 +69,7 @@
   function topCardId(j){
     column=document.getElementById("c"+j);
     topCard = column.lastChild;
-    return topCard.id; // what card is it? v0...
+    return (topCard) ? topCard.id : ''; // what card is it? v0...
   }
   const getSuit = s => Math.floor(parseInt(s.substring(1),10)/13); 
   const getVal = s => parseInt(s.substring(1),10) % 13; 
@@ -134,7 +134,7 @@
   function startGame(){
     shuffle();
     deal();
-    while(tryAce());
+    tryAce(); // just once for now
   }
   function tempAlert(msg,duration) { // adapted from Travis J on stackoverflow
      var el = document.createElement("div");

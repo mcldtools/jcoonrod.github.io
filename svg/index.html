@@ -93,6 +93,7 @@
 
   // Move a card from the top of a column to an open freecell for now
   function popStack(j) {
+    tryAce();
     tryFreeCells(j); // try this first
   }
   function tryFreeCells(j){

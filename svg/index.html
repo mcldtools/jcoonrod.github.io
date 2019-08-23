@@ -19,7 +19,7 @@
 </head>
   
 <body>
-  <p><a href=/>&#9776;</a> SVG Freecell 0.1u <button onclick="startGame()">Shuffle</button></p>
+  <p><a href=/>&#9776;</a> SVG Freecell 0.1v <button onclick="startGame()">Shuffle</button></p>
   <div class=row>
   <div id=s0 class=s onclick="tempAlert('Freecell 0',1000)"></div>
   <div id=s1 class=s onclick="alert('Freecell 1')"></div>
@@ -100,9 +100,9 @@
     free=-1; 
     for(k=0;k<4;k++) if(freecells[k]==-1) free=k;
     if(free>-1) {
-      t=topCardID(j);
+      t=topCardId(j);
       freecells[free]=parseInt(t.substring(1)); // place the cardno in there for easy move later
-      popCard(j,topCardId(j),"s"+free);
+      popCard(j,t,"s"+free);
       return 1;
     }else{
       return 0;

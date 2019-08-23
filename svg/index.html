@@ -15,11 +15,12 @@
   div.r {line-height:85%; letter-spacing:80%; font-size:14vw; color:red; background:white;}
   div.b {line-height:85%; letter-spacing:80%; font-size:14vw; background:white;}
   </style>
+	<meta http-equiv="CACHE-CONTROL" content="NO-CACHE">
   <link rel="icon" href="/favicon.ico" type="image/x-icon" />
 </head>
   
 <body>
-  <p><a href=/>&#9776;</a> SVG Freecell 0.1w <button onclick="startGame()">Shuffle</button></p>
+  <p><a href=/>&#9776;</a> SVG Freecell 0.1x <button onclick="startGame()">Shuffle</button></p>
   <div class=row>
   <div id=s0 class=s onclick="tempAlert('Freecell 0',1000)"></div>
   <div id=s1 class=s onclick="alert('Freecell 1')"></div>
@@ -127,6 +128,12 @@
       const column=document.getElementById("c"+j);
       while (column.firstChild) column.removeChild(column.firstChild);
     }
+	  for(j=0;j<4;j++) { // clear freecells and aces piles
+			aces[j]=-1;
+			document.getElementById("a"+j).innerHTML='';
+			freecells[j]=-1;
+			document.getElementById("s"+j).innerHTML='';
+		}
     // next, append cards to each column in turn with a slight pause
     for(i=0;i<52;i++) setTimeout(deal1(i),250);
   }

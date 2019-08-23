@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<!-- Freecell using svg for the cards -->
+<!-- Freecell using svg for the cards - all in one HTML page -->
 <html>
 <head>
   <meta charset="utf-8">
@@ -30,7 +30,7 @@
   <div id=a2 class=s onclick="alert('Ace 2')"></div>
   <div id=a3 class=s onclick="alert('Ace 3')"></div>
 </div>
-<div class=row><p>&nbsp;</p></div>
+<div class=row>&nbsp;</div>
 <div class=row>
   <div id=c0 class=c onclick="popStack(0)"></div>
   <div id=c1 class=c onclick="popStack(1)"></div>
@@ -93,13 +93,15 @@
 
   // Move a card from the top of a column to an open freecell for now
   function popStack(j) {
-    tryAce();
     tryFreeCells(j); // try this first
+    tryAce();
   }
   function tryFreeCells(j){
     free=-1; 
     for(k=0;k<4;k++) if(freecells[k]==-1) free=k;
     if(free>-1) {
+      t=topCardID(j);
+      freecells[free]=parseInt(t.substring(1)); // place the cardno in there for easy move later
       popCard(j,topCardId(j),"s"+free);
       return 1;
     }else{

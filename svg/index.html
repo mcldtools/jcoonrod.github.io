@@ -20,16 +20,16 @@
 </head>
   
 <body>
-  <p><a href=/>&#9776;</a> SVG Freecell 0.2 <button onclick="startGame()">Shuffle</button></p>
+  <p><a href=/>&#9776;</a> SVG Freecell 0.2a <button onclick="startGame()">Shuffle</button></p>
   <div class=row>
   <div id=s0 class=s onclick="dropFree(0)"></div>
   <div id=s1 class=s onclick="dropFree(1)"></div>
   <div id=s2 class=s onclick="dropFree(2)"></div>
   <div id=s3 class=s onclick="dropFree(3)"></div>
-  <div id=a0 class=s"></div>
-  <div id=a1 class=s"></div>
-  <div id=a2 class=s"></div>
-  <div id=a3 class=s"></div>
+  <div id=a0 class=s></div>
+  <div id=a1 class=s></div>
+  <div id=a2 class=s></div>
+  <div id=a3 class=s></div>
 </div>
 <div class=row>&nbsp;</div>
 <div class=row>
@@ -65,7 +65,9 @@
 			while(j<8 && nmove==0){
 				destId=topCardId(j); destVal=getVal(destId); destSuit(destId);
 				destColor(destSuit==0 || destSuit==3) ? 'b' : 'r';
+				console.log("Free j "+ color+val+" "+destColor+destVal);
 				if((val==destVal+1) && (color !== destColor)) {
+					console.log("Append "+cardNo+" to "+j);
 					appendCard(cardNo,j);
 					freecell[k]=-1;
 					document.getElementById("s"+k).innerHTML="";
@@ -106,7 +108,6 @@
   	    if(topID) { // is there a top card in this column?
     	    suit=getSuit(topID);
       	  val=getVal(topID);
-        	console.log("Ace? "+ val + "" + aces[suit]);
         	if(aces[suit]==(val-1)) {
           	nmove++;
           	aces[suit]++;

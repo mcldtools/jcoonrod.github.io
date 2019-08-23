@@ -19,7 +19,7 @@
 </head>
   
 <body>
-  <p><a href=/>&#9776;</a> SVG Freecell 0.1r <button onclick="startGame()">Shuffle</button></p>
+  <p><a href=/>&#9776;</a> SVG Freecell 0.1s <button onclick="startGame()">Shuffle</button></p>
   <div class=row>
   <div id=s0 class=s onclick="tempAlert('Freecell 0',1000)"></div>
   <div id=s1 class=s onclick="alert('Freecell 1')"></div>
@@ -91,8 +91,20 @@
     return nmove;
   }
 
-  // Move a card from the top of a column to a new spot
-  const popStack = j => popCard(j,topCardId(j),"a0");
+  // Move a card from the top of a column to an open freecell for now
+  function popStack(j) {
+    tryFreeCells(j); // try this first
+  }
+  tryFreeCells(j){
+    free=-1; 
+    for(k=0;k<4;k++) if(freecells[k]==-1) free=k;
+    if(free>-1) {
+      popCard(j,topCardId(j),"s"+free);
+      return 1;
+    }else{
+      return 0;
+    }
+  }
 
   // Move a card from one place to another
   function popCard(j,srcId,destId){
@@ -122,7 +134,7 @@
       while (column.firstChild) column.removeChild(column.firstChild);
     }
     // next, append cards to each column in turn with a slight pause
-    for(i=0;i<52;i++) setTimeout(deal1(i),100);
+    for(i=0;i<52;i++) setTimeout(deal1(i),250);
   }
   function deal1(i){
     j=i%8;

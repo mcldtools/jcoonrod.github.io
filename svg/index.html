@@ -20,7 +20,7 @@
 </head>
   
 <body>
-  <p><a href=/>&#9776;</a> SVG Freecell 0.2b <button onclick="startGame()">Shuffle</button></p>
+  <p><a href=/>&#9776;</a> SVG Freecell 0.2d <button onclick="startGame()">Shuffle</button></p>
   <div class=row>
   <div id=s0 class=s onclick="dropFree(0)"></div>
   <div id=s1 class=s onclick="dropFree(1)"></div>
@@ -63,7 +63,7 @@
 			// run through the top cards to see if it can drop down to them
 			j=0;nmove=0;
 			while(j<8 && nmove==0){
-				destId=topCardId(j); destVal=getVal(destId); destSuit(destId);
+				destId=topCardId(j); destVal=getVal(destId); destSuit=getSuit(destId);
 				destColor(destSuit==0 || destSuit==3) ? 'b' : 'r';
 				console.log("Free j "+ color+val+" "+destColor+destVal);
 				if((val==destVal+1) && (color !== destColor)) {

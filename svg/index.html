@@ -19,7 +19,7 @@
 </head>
   
 <body>
-  <p><a href=/>&#9776;</a> SVG Freecell 0.1m <button onclick="startGame()">Shuffle</button></p>
+  <p><a href=/>&#9776;</a> SVG Freecell 0.1n <button onclick="startGame()">Shuffle</button></p>
   <div class=row>
   <div id=s0 class=s onclick="tempAlert('Freecell 0',1000)"></div>
   <div id=s1 class=s onclick="alert('Freecell 1')"></div>
@@ -80,7 +80,8 @@
       if(topID) { // is there a top card in this column?
         suit=getSuit(topID);
         val=getVal(topID);
-        if(aces[suit]=val-1) {
+        console.log("Ace? "+ val + "" + aces[suit]);
+        if(aces[suit]==(val-1)) {
           nmove++;
           aces[suit]++;
           popCard(j,topID,"a"+suit);
@@ -93,9 +94,11 @@
   const popStack = j => popCard(j,topCardId(j),"a0");
   function popCard(j,srcId,destId){
     column=document.getElementById("c"+j);
+    src=document.getElementById(srcId);
     dest=document.getElementById(destId);
+    dest.innerHTML=src.innerHTML;
     column.removeChild(column.lastChild);
-    console.log(srcId+" "+destId);
+    console.log("Pop "+srcId+" "+destId);
     return 1;
   }
 

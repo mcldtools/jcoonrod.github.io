@@ -15,11 +15,11 @@
   div.r {line-height:85%; letter-spacing:80%; font-size:14vw; color:red; background:white;}
   div.b {line-height:85%; letter-spacing:80%; font-size:14vw; background:white;}
   </style>
-  <link rel="icon" href="/favicon.png" type="image/x-icon" />
+  <link rel="icon" href="/favicon.ico" type="image/x-icon" />
 </head>
   
 <body>
-  <p><a href=/>&#9776;</a> SVG Freecell 0.1j <button onclick="startGame()">Shuffle</button></p>
+  <p><a href=/>&#9776;</a> SVG Freecell 0.1k <button onclick="startGame()">Shuffle</button></p>
   <div class=row>
   <div id=s0 class=s onclick="tempAlert('Freecell 0',1000)"></div>
   <div id=s1 class=s onclick="alert('Freecell 1')"></div>
@@ -71,8 +71,8 @@
     topCard = column.lastChild;
     return topCard.id; // what card is it? v0...
   }
-  function getSuit(x) return Math.floor(x.substring(1).parseInt()/13); 
-  function getVal(x) return x.substring(1).parseInt() % 13; 
+  const getSuit = x => Math.floor((x.substring(1).parseInt())/13); 
+  const getVal = x => (x.substring(1).parseInt()) % 13; 
   function tryAce(){
     nmove=0; // This gets incremented and returned
     for(j=0;j<8;j++) {

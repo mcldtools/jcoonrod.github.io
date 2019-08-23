@@ -20,7 +20,7 @@
 </head>
   
 <body>
-  <p><a href=/>&#9776;</a> SVG Freecell 0.1y <button onclick="startGame()">Shuffle</button></p>
+  <p><a href=/>&#9776;</a> SVG Freecell 0.1z <button onclick="startGame()">Shuffle</button></p>
   <div class=row>
   <div id=s0 class=s onclick="dropFree(0)"></div>
   <div id=s1 class=s onclick="dropFree(1)"></div>
@@ -56,7 +56,7 @@
   createCards();
 
 	// FROM HERE FORWARD are function definitions - one being worked on at top
-	function dropFree(var k){ // Drop the card from freecell k to a column
+	function dropFree(k){ // Drop the card from freecell k to a column
 		var cardNo=freecell[k];
 		if(cardNo>-1) {
 			suit=Math.floor(cardNo/13); val=cardNo % 13; color=(suit==0 || suit==3) ? 'b' : 'r';
@@ -75,7 +75,7 @@
 			}
 		}
 	}
-	function appendCard(var cardNo,j) {
+	function appendCard(cardNo,j) {
 		const column=document.getElementById("c"+j);
 		z=column.childElementCount+1;
     var card=document.createElement("div");
@@ -90,7 +90,7 @@
 	}
 
   // Run through to see if any top cards can jump to the ace pile	
-  function topCardId(var j){
+  function topCardId(j){
     column=document.getElementById("c"+j);
     topCard = column.lastChild;
     return (topCard) ? topCard.id : ''; // what card is it? v0...

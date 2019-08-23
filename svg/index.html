@@ -56,16 +56,38 @@
   createCards();
 
 	// FROM HERE FORWARD are function definitions - one being worked on at top
-	function dropFree(var k){ // Drop the card in freecell k
-		cardNo=freecell[k];
+	function dropFree(var k){ // Drop the card from freecell k to a column
+		var cardNo=freecell[k];
 		if(cardNo>-1) {
 			suit=Math.floor(cardNo/13); val=cardNo % 13; color=(suit==0 || suit==3) ? 'b' : 'r';
 			// run through the top cards to see if it can drop down to them
-			for(j=0;j<8;j++){
+			j=0;nmove=0;
+			while(j<8 && nmove==0){
 				destId=topCardId(j); destVal=getVal(destId); destSuit(destId);
 				destColor(destSuit==0 || destSuit==3) ? 'b' : 'r';
 				if(val==destVal+1 && color<>destColor) {
-					
+					appendCard(cardNo,j);
+					freecell[k]=-1;
+					document.getElementById("s"+k).innerHTML="";
+					nmove=1;
+				}
+				j++;
+			}
+		}
+	}
+	function appendCard(var cardNo,j) {
+		const column=document.getElementById("c"+j);
+		z=column.childElementCount+1;
+    var card=document.createElement("div");
+    card.innerHTML=cards[cardNo];
+    card.id="v"+cardNo;
+    card.style.zindex=z.toString();
+    card.style.position='absolute';
+    card.style.width='100%';
+    y=(z-1)*3;
+    card.style.top=y.toString()+"vw";
+    column.appendChild(card);
+	}
 
   // Run through to see if any top cards can jump to the ace pile	
   function topCardId(var j){
@@ -147,23 +169,14 @@
 			document.getElementById("s"+j).innerHTML='';
 		}
     // next, append cards to each column in turn with a slight pause
-    for(i=0;i<52;i++) setTimeout(deal1(i),250);
+    for(i=0;i<52;i++) deal1(i);
   }
   function deal1(i){
     j=i%8;
-    z=1+Math.floor(i/8); // how far down in the stack?
-    const column=document.getElementById("c"+j);
-    var card=document.createElement("div");
-    cardNo=deck[i];
-    card.innerHTML=cards[cardNo];
-    card.id="v"+cardNo;
-    card.style.zindex=j.toString();
-    card.style.position='absolute';
-    card.style.width='100%';
-    y=(z-1)*3;
-    card.style.top=y.toString()+"vw";
-    column.appendChild(card);
+//    z=1+Math.floor(i/8); // how far down in the stack? - z gets computed by the append
+		appendCard(deck[i],j); // 
   }
+					
     
   function startGame(){
     shuffle();

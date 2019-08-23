@@ -71,8 +71,8 @@
     topCard = column.lastChild;
     return topCard.id; // what card is it? v0...
   }
-  const getSuit = x => Math.floor((x.substring(1).parseInt())/13); 
-  const getVal = x => (x.substring(1).parseInt()) % 13; 
+  const getSuit = s => Math.floor(parseInt(s.substring(1),10)/13); 
+  const getVal = s => parseInt(s.substring(1),10) % 13; 
   function tryAce(){
     nmove=0; // This gets incremented and returned
     for(j=0;j<8;j++) {

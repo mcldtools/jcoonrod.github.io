@@ -20,7 +20,7 @@
 </head>
   
 <body>
-  <p><a href=/>&#9776;</a> SVG Freecell 0.1z <button onclick="startGame()">Shuffle</button></p>
+  <p><a href=/>&#9776;</a> SVG Freecell 0.2 <button onclick="startGame()">Shuffle</button></p>
   <div class=row>
   <div id=s0 class=s onclick="dropFree(0)"></div>
   <div id=s1 class=s onclick="dropFree(1)"></div>
@@ -65,7 +65,7 @@
 			while(j<8 && nmove==0){
 				destId=topCardId(j); destVal=getVal(destId); destSuit(destId);
 				destColor(destSuit==0 || destSuit==3) ? 'b' : 'r';
-				if(val==destVal+1 && color<>destColor) {
+				if((val==destVal+1) && (color !== destColor)) {
 					appendCard(cardNo,j);
 					freecell[k]=-1;
 					document.getElementById("s"+k).innerHTML="";

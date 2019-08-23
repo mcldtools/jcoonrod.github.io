@@ -20,16 +20,16 @@
 </head>
   
 <body>
-  <p><a href=/>&#9776;</a> SVG Freecell 0.1x <button onclick="startGame()">Shuffle</button></p>
+  <p><a href=/>&#9776;</a> SVG Freecell 0.1y <button onclick="startGame()">Shuffle</button></p>
   <div class=row>
-  <div id=s0 class=s onclick="tempAlert('Freecell 0',1000)"></div>
-  <div id=s1 class=s onclick="alert('Freecell 1')"></div>
-  <div id=s2 class=s onclick="alert('Freecell 2')"></div>
-  <div id=s3 class=s onclick="alert('Freecell 3')"></div>
-  <div id=a0 class=s onclick="alert('Ace 0')"></div>
-  <div id=a1 class=s onclick="alert('Ace 1')"></div>
-  <div id=a2 class=s onclick="alert('Ace 2')"></div>
-  <div id=a3 class=s onclick="alert('Ace 3')"></div>
+  <div id=s0 class=s onclick="dropFree(0)"></div>
+  <div id=s1 class=s onclick="dropFree(1)"></div>
+  <div id=s2 class=s onclick="dropFree(2)"></div>
+  <div id=s3 class=s onclick="dropFree(3)"></div>
+  <div id=a0 class=s"></div>
+  <div id=a1 class=s"></div>
+  <div id=a2 class=s"></div>
+  <div id=a3 class=s"></div>
 </div>
 <div class=row>&nbsp;</div>
 <div class=row>
@@ -56,6 +56,7 @@
   createCards();
 
   // Run through to see if any top cards can jump to the ace pile
+	
   function topCardId(j){
     column=document.getElementById("c"+j);
     topCard = column.lastChild;

@@ -2,26 +2,27 @@
 <!-- Freecell using svg for the cards - all in one HTML page -->
 <html>
 <head>
-  <link rel="icon" type="image/svg+xml" href="jc.svg"/>
-	<link rel="alternate icon" type="image/png" href="jc.png"/>
+  <link rel="icon" type="image/png" href="jc.png"/>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width">
   <title>SVG Cards</title>
   <style>
-    body {background:green;padding:0;margin:0;font-family:sans-serif;}
+    body {background:green;padding:0;margin:0;font-family:sans-serif;font-weight:bold;}
     p, p>a {color:white;}
     div.row {display:flex; flex-wrap:nowrap; flex-direction:row; justify-content:space-evenly;}
-  div.a {position:absolute;background:red;color:white;top:40%;left:40%;padding:1vw;font-size:3vw;}
-  div.s {width:10%;height:14vw; background:lightgreen;}
-  div.c {height:80vw;width:10%;position:relative;}
-  div.r {line-height:85%; letter-spacing:80%; font-size:14vw; color:red; background:white;}
-  div.b {line-height:85%; letter-spacing:80%; font-size:14vw; background:white;}
+    div.a {position:absolute;background:red;color:white;top:40%;left:40%;padding:1vw;font-size:3vw;}
+    div.s {width:11%;height:14vw; background:lightgreen;}
+    div.c {height:80vw;width:11%;position:relative;}
+    div.r {line-height:85%; letter-spacing:80%; font-size:14vw; color:red; background:white;}
+    div.b {line-height:85%; letter-spacing:80%; font-size:14vw; background:white;}
   </style>
 	<meta http-equiv="CACHE-CONTROL" content="NO-CACHE">
 </head>
   
 <body>
-  <p><a href=/>&#9776;</a> SVG Freecell 0.2e <button onclick="startGame()">Shuffle</button></p>
+  <p><a href=/>&#9776;</a> SVG Freecell 0.2h   &#x1F482;
+  <button onclick="shuffle(); startGame()">New Game</button>
+  <button onclick="startGame()">Replay</button></p>
   <div class=row>
   <div id=s0 class=s onclick="dropFree(0)"></div>
   <div id=s1 class=s onclick="dropFree(1)"></div>
@@ -51,14 +52,94 @@
   cards = []; // array of card div svg objects
   deck = []; // sort order for the cards
   freecells = [-1,-1,-1,-1]; // holds the cardNo if filled
-  nopen = 0;
-  nfree = 0; // computed as # #nopen * # empty columns
+  nopen = 0; // computed # open freecells
+  nempty = 0; // computed # empty columns
   aces = [-1,-1,-1,-1]; // holds the card value if filled
   suits = ["&spadesuit;","&heartsuit;","&diamondsuit;","&clubsuit;"];
+  faces = ["&#x1F482","&#x1F478;","&#x1F934;"]; // emojis for facecards
   vals = ['A','2','3','4','5','6','7','8','9','10','J','Q','K'];
+  var nodes; // this gets defined by stackable
+  var first; // index within the nodes for the first that could be moved
+  var last; // " the top card
   createCards();
 
 	// FROM HERE FORWARD are function definitions - one being worked on at top
+
+  function popStack(j) { // a column has been clicked
+    stackable(j);
+    if (!tryMove(j)) tryFreeCells(j); // try either moving a column or a car to a freecell
+    tryAce(); // in eithercase, thereafter check for Ace flips.
+  }
+  function tryMove(j) { // attempt to move a column of cards to another column
+    var tomove = [];
+    nmove=0; m=first; // we'll march down the column until something moves
+    column=document.getElementById("c"+j);
+    console.log("M "+m+" last "+last);
+    while(!nmove && m<=last) { // loop from the first of the stackables to whatever will move
+      srcId=nodes[m].id; val=getVal(srcId); color=getColor(srcId);
+      i=1; // columns beyond k
+      while(i<8 && !nmove) {
+        k=(j+i) % 8;
+        destId=topCardId(k); val2=getVal(destId); color2=getColor(destId);
+        if(!destId || (color!==color2 && val+1==val2)) {
+          nmove++;
+          for(n=m;n<=last;n++) {
+            l=nodes[n].id;
+            tomove.push(l.substring(1));
+          } // list cards to move
+          for(n=m;n<=last;n++) {
+            parent=document.getElementById("c"+j);
+            var child=parent.lastElementChild;
+            parent.removeChild(child);
+          }
+          for(n=m;n<=last;n++) appendCard(tomove[n-m],k);
+        }
+        i++;
+      }
+      m++;
+    }
+    return nmove;
+  }
+
+	function computeFree() {
+	  nopen=0;
+	  for(k=0;k<4;k++) if(freecells[k]==-1) nopen++;
+	  nempty=0;
+	  for(j=0;j<8;j++) if(columnEmpty(j)) nempty++;
+	  nmax=1+(nopen+1)*(nempty)
+	}
+	function stackable(j) { // return an array of moveable CardNo's
+	  nodes=document.getElementById("c"+j).childNodes;
+	  last=nodes.length-1; // index of top node in node list
+    first=last-1; // index on how many can be stacked
+    match=1; // test to see whether it can be stacked
+    while(first>-1 && match) {
+      id1=nodes[first].id; id2=nodes[first+1].id;
+      val1=getVal(id1); val2=getVal(id2);
+      color1=getColor(id1); color2=getColor(id2); // returns 'r' or 'b'
+      match=(val1==(val2+1) && color1!==color2); // true or false
+      first--;
+    }
+    first=first+2;
+	}
+
+	function columnEmpty(j) {
+	  return (document.getElementById("c"+j).childElementCount==0)
+	}
+	
+	function appendCard(cardNo,j) {
+		const column=document.getElementById("c"+j);
+		z=column.childElementCount+1;
+    var card=document.createElement("div");
+    card.innerHTML=cards[cardNo];
+    card.id="v"+cardNo;
+    card.style.zindex=z.toString();
+    card.style.position='absolute';
+    card.style.width='100%';
+    y=(z-1)*3;
+    card.style.top=y.toString()+"vw";
+    column.appendChild(card);
+	}
 	function dropFree(k){ // Drop the card from freecell k to a column
 		var cardNo=freecells[k];
 		if(cardNo>-1) {
@@ -92,46 +173,6 @@
 		}
 		tryAce();
 	}
-	function computeFree() {
-	  nopen=0;
-	  for(k=0;k<4;k++) if(freecells[k]==-1) nopen++;
-	  ncols=0;
-	  for(j=0;j<8;j++) if(columnEmpty(j)) ncols++;
-	  nfree=(nopen+1)*(ncols)
-	  console.log("Open "+nopen+" cols "+ncols);
-	}
-	function stackable(j) {
-	  nodes=document.getElementById("c"+j).childNodes;
-	  last=nodes.length-1; // index of top node in node list
-    first=last-1; // index on how many can be stacked
-    match=1; // test to see whether it can be stacked
-    while(first>-1 && match) {
-      id1=nodes[first].id; id2=nodes[first+1].id;
-      val1=getVal(id1); val2=getVal(id2);
-      color1=getColor(id1); color2=getColor(id2); // returns 'r' or 'b'
-      match=(val1==(val2+1) && color1!==color2); // true or false
-      first--;
-    }
-    console.log("stackable j"+j+" "+first+" to "+last);
-	}
-
-	function columnEmpty(j) {
-	  return (document.getElementById("c"+j).childElementCount==0)
-	}
-	
-	function appendCard(cardNo,j) {
-		const column=document.getElementById("c"+j);
-		z=column.childElementCount+1;
-    var card=document.createElement("div");
-    card.innerHTML=cards[cardNo];
-    card.id="v"+cardNo;
-    card.style.zindex=z.toString();
-    card.style.position='absolute';
-    card.style.width='100%';
-    y=(z-1)*3;
-    card.style.top=y.toString()+"vw";
-    column.appendChild(card);
-	}
 
   // Run through to see if any top cards can jump to the ace pile
   function topCardId(j){
@@ -159,35 +200,6 @@
 				}
       }
     }
-  }
-
-  // Move a card from the top of a column to an open freecell for now
-  function tryMove(j) { // temporary version will just try moving topCard
-    id=topCardId(j);
-    val=getVal(id);
-    color=getColor(id);
-    nmove=0;
-    for(k=0;k<8;k++) { // run through the other columns
-      if(k!==j && !nmove) {
-        id2=topCardId(k);
-        val2=getVal(id2);
-        color2=getColor(id2);
-        if(color!==color2 && val+1==val2) {
-          nmove++;
-          console.log("Move "+color+val+" to "+color2+val2)
-          column=document.getElementById("c"+j);
-          column.removeChild(column.lastChild);
-          cardNo=parseInt(id.substring(1))
-          appendCard(cardNo,k);
-        }
-      }
-    }
-    return nmove;
-  }
-  function popStack(j) {
-    first=stackable(j);
-    if (!tryMove(j)) tryFreeCells(j); // try either moving a column or a car to a freecell
-    tryAce(); // in eithercase, thereafter check for Ace flips.
   }
   function tryFreeCells(j){
     free=-1;
@@ -246,7 +258,6 @@
 					
     
   function startGame(){
-    shuffle();
     deal();
     tryAce(); // just once for now
   }
@@ -265,10 +276,12 @@
 			var suit=Math.floor(n/13);
 			var f=''; if(suit==1 || suit==2) f=' fill="red"'; // optionally paint the red suits red
 			var val = n % 13;
+			var ctr = (val<10) ? suits[suit] : faces[val-10];
 			cards[n]='<svg viewBox="0 0 200 280">'
       + '<rect x="2" y="2" rx="20" ry="20" width="194" height="274" style="fill:white;stroke:black;stroke-width:4;" />'
-      + '<text font-size="120" x="97" y="137" text-anchor="middle" alignment-baseline="central"'+f+'>'+suits[suit]+'</text>'
-      + '<text x="15" y="45" font-size="45">'+vals[val]+'</text>'
+      + '<text font-size="120" x="97" y="137" text-anchor="middle" alignment-baseline="central"'+f+'>'
+      + ctr+'</text>'
+      + '<text x="15" y="45" font-size="45"'+f+'>'+vals[val]+'</text>'
       + '<text x="145" y="50" font-size="45"'+f+'>'+suits[suit]+'</text>'
       + '</svg>';
 		}

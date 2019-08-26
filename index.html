@@ -48,6 +48,12 @@
 </div>
 
 <script>
+	window.onload = () => { 'use strict'; // register service worker
+  if ('serviceWorker' in navigator) {
+    navigator.serviceWorker.register('./sw.js');
+  }
+}
+
 // Set up a 1-d array of the unicode values for the cards 0-51
 // Note - Unicode sets up 16 cards per suit, including two queens
 // Unlike the old game, I want to only use the DOM

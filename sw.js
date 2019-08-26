@@ -1,4 +1,4 @@
-var cacheName = 'hello-pwa';
+var cacheName = 'jc-freecell';
 var filesToCache = [
   '/',
   '/index.html'

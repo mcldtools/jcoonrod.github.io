@@ -24,7 +24,7 @@
 </head>
   
 <body>
-  <p><a href=/>&#9776;</a> SVG Freecell 0.2m &#x1F482;
+  <p>One-Click Freecell 0.2n &#x1F482;
   <button onclick="shuffle(); startGame()">New Game</button>
   <button onclick="startGame()">Replay</button></p>
   <div class=row>
@@ -84,7 +84,6 @@
     var tomove = [];
     nmove=0; m=first; // we'll march down the column until something moves
     column=document.getElementById("c"+j);
-    console.log("M "+m+" last "+last);
     while(!nmove && m<=last) { // loop from the first of the stackables to whatever will move
       srcId=nodes[m].id; val=getVal(srcId); color=getColor(srcId);
       i=1; // columns beyond k
@@ -163,9 +162,7 @@
 			while(j<8 && nmove==0){
 				destId=topCardId(j); destVal=getVal(destId); destSuit=getSuit(destId);
 				destColor=(destSuit==0 || destSuit==3) ? 'b' : 'r';
-				console.log("Free j "+ color+val+" "+destColor+destVal);
 				if((val==destVal-1) && (color !== destColor)) {
-					console.log("Append "+cardNo+" to "+j);
 					appendCard(cardNo,j);
 					freecells[k]=-1;
 					document.getElementById("s"+k).innerHTML="";
@@ -176,8 +173,7 @@
 			j=0; // if nothing moved to a full column, try empty columns!
 			while(j<8 && nmove==0) {
 			  if(columnEmpty(j)) {
-          console.log("Append to empty "+cardNo+" to "+j);
-					appendCard(cardNo,j);
+ 					appendCard(cardNo,j);
 					freecells[k]=-1;
 					document.getElementById("s"+k).innerHTML="";
 					nmove=1;
@@ -220,11 +216,8 @@
         cardNo=freecells[j];
         if(cardNo>-1) {
           val=cardNo % 13; suit=Math.floor(cardNo/13);
-          console.log("F2A "+j+"="+cardNo+" nmove "+nmove+" s"+suit+" v"+val);
           var tst=(aces[suit]==(val-1));
-          console.log("a"+aces[suit]+"v-1"+(val-1)+"y "+tst);
           if(aces[suit]==(val-1)) {
-            console.log("F up a"+val);
             nmove++;
             aces[suit]++;
             freecells[j]=-1;
@@ -250,11 +243,9 @@
 
   // Move a card from one place to another
   function popCard(j,srcId,destId){
-    console.log("Pop "+srcId+" "+destId);
     column=document.getElementById("c"+j);
     src=document.getElementById(srcId);
     dest=document.getElementById(destId);
-    console.log("Dest "+dest);
     if(dest) dest.innerHTML=src.innerHTML;
     column.removeChild(column.lastChild);
     return 1;

@@ -6,6 +6,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width">
   <title>SVG Cards</title>
+  <link rel='shortcut icon' href='/jc.png'>
   <style>
     body {background:green;padding:0;margin:0;font-family:sans-serif;font-weight:bold;}
     p, p>a {color:white;}
@@ -16,11 +17,10 @@
     div.r {line-height:85%; letter-spacing:80%; font-size:14vw; color:red; background:white;}
     div.b {line-height:85%; letter-spacing:80%; font-size:14vw; background:white;}
   </style>
-	<meta http-equiv="CACHE-CONTROL" content="NO-CACHE">
 </head>
   
 <body>
-  <p><a href=/>&#9776;</a> SVG Freecell 0.2h   &#x1F482;
+  <p><a href=/>&#9776;</a> SVG Freecell 0.2m &#x1F482;
   <button onclick="shuffle(); startGame()">New Game</button>
   <button onclick="startGame()">Replay</button></p>
   <div class=row>
@@ -108,19 +108,23 @@
 	  for(j=0;j<8;j++) if(columnEmpty(j)) nempty++;
 	  nmax=1+(nopen+1)*(nempty)
 	}
-	function stackable(j) { // return an array of moveable CardNo's
+	function stackable(j) { // return the global values of first and last
 	  nodes=document.getElementById("c"+j).childNodes;
 	  last=nodes.length-1; // index of top node in node list
     first=last-1; // index on how many can be stacked
     match=1; // test to see whether it can be stacked
-    while(first>-1 && match) {
-      id1=nodes[first].id; id2=nodes[first+1].id;
-      val1=getVal(id1); val2=getVal(id2);
-      color1=getColor(id1); color2=getColor(id2); // returns 'r' or 'b'
-      match=(val1==(val2+1) && color1!==color2); // true or false
-      first--;
+    if(last==0) { // special case of last card
+      first=0;
+    }else {
+      while(first>-1 && match) {
+        id1=nodes[first].id; id2=nodes[first+1].id;
+        val1=getVal(id1); val2=getVal(id2);
+        color1=getColor(id1); color2=getColor(id2); // returns 'r' or 'b'
+        match=(val1==(val2+1) && color1!==color2); // true or false
+        first--;
+      }
+      first=first+2;
     }
-    first=first+2;
 	}
 
 	function columnEmpty(j) {
@@ -180,14 +184,17 @@
     topCard = column.lastChild;
     return (topCard) ? topCard.id : ''; // what card is it? v0...
   }
+  // simple functions to convert id to values
   const getSuit = s => Math.floor(parseInt(s.substring(1),10)/13);
   const getVal = s => parseInt(s.substring(1),10) % 13;
   const getColor = s => (getSuit(s)==0 || getSuit(s)==3) ? 'b' : 'r';
+  
+  // check if anything can jump to the aces piles automatically
   function tryAce(){ // this will repeat as long as it moves something
     nmove=1; // This gets incremented and returned
 		while(nmove) {
 			nmove=0;
-	    for(j=0;j<8;j++) {
+	    for(j=0;j<8;j++) { // try pop from the columns
 	      topID=topCardId(j);
   	    if(topID) { // is there a top card in this column?
     	    suit=getSuit(topID);
@@ -198,6 +205,23 @@
           	popCard(j,topID,"a"+suit);
         	}
 				}
+      }
+      for(j=0;j<4;j++) { // try pop from freecells
+        cardNo=freecells[j];
+        if(cardNo>-1) {
+          val=cardNo % 13; suit=Math.floor(cardNo/13);
+          console.log("F2A "+j+"="+cardNo+" nmove "+nmove+" s"+suit+" v"+val);
+          var tst=(aces[suit]==(val-1));
+          console.log("a"+aces[suit]+"v-1"+(val-1)+"y "+tst);
+          if(aces[suit]==(val-1)) {
+            console.log("F up a"+val);
+            nmove++;
+            aces[suit]++;
+            freecells[j]=-1;
+            document.getElementById("s"+j).innerHTML="";
+            document.getElementById("a"+suit).innerHtml=cards[cardNo];
+          }
+        }
       }
     }
   }

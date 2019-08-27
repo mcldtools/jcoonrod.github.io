@@ -13,9 +13,6 @@
   <link rel='shortcut icon' href='/jc.png'>
   <style>
     body {background:green;padding:0;margin:0;font-family:sans-serif;font-weight:bold;}
-    p, p>a {color:white;}
-    div.r {font-size:14vw; color:red; background:white;}
-    div.b {font-size:14vw; background:white;}
   </style>
 </head>
   
@@ -48,9 +45,42 @@ Test Deal with motion 0.1 <button onclick="shuffle(); startGame()">New Game</but
   }
 // a function to deal the deck into absolute positions
   function deal(){
-  
-  }
-					
+		var dx=12; var dy=3; // distance between cards 
+		for(var i=0;i<52;i++) {
+			startCard(deck[i]); // initially at position 0,0
+			moveCard(deck[i],(i % 8)*dx, Math.floor(i/8)*dy+15);
+		}
+	}
+	function startCard(cardNo) {
+		var card=document.createElement("div");
+    card.innerHTML=cards[cardNo];
+    card.id="c"+cardNo;
+//    card.style.zindex=z.toString();
+    card.style.position='absolute';
+    card.style.width='12vw';
+		card.style.left='0vw';
+		card.style.top='0vw';
+	}
+	function moveCard(cardNo,left,top){ // note - these must be in vw measurements
+		var card=document.getElementById("c"+cardNo);
+		var m = setInterval(frame,5);
+		var x1 = (card.style.left).slice(0,-2); // trim off "vw"
+		var y1 = (card.style.top).slice(0,-2); // trim off "vw"
+		var dx = left-x1;
+		var dy = top-y1;
+		var nsteps=Mathmax(abs(dx),abs(dy)); // get the biggest different - do this number of steps
+		var n=0;
+		function frame() {
+			if (n==nsteps) {
+				clearInterval(m);
+			}else{
+				x=Math.floor(x1+n*dx/nsteps); y=Math.floor(y1+n*dy/nsteps);
+				card.style.left = x+"vw";
+				card.style.top = y+"vw";
+			}
+		}
+				
+		
     
   function startGame(){
     deal();

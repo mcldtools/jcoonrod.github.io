@@ -16,7 +16,7 @@
   
 <body>
 <header>
-Test Deal with motion 0.1c <button onclick="shuffle(); startGame()">New Game</button>
+Test Deal with motion 0.1d <button onclick="shuffle(); startGame()">New Game</button>
 </header>
 <script>
 	columnWidth=screen.width/8; // 1/8 of screen in pixels
@@ -61,7 +61,7 @@ Test Deal with motion 0.1c <button onclick="shuffle(); startGame()">New Game</bu
 		card.style.top='0px';
 	}
 	function moveCard(cardNo,left,top){ // note - these must be in px measurements
-		console.log("M1 "+cardNo+" left "+left+" top "+top;
+		console.log("M1 "+cardNo+" left "+left+" top "+top);
 		var card=document.getElementById("c"+cardNo);
 		var rect = card.getBoundingClientRect();
 		var m = setInterval(frame,5);

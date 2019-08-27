@@ -16,7 +16,7 @@
   
 <body>
 <header>
-Test Deal with motion 0.1b <button onclick="shuffle(); startGame()">New Game</button>
+Test Deal with motion 0.1c <button onclick="shuffle(); startGame()">New Game</button>
 </header>
 <script>
 	columnWidth=screen.width/8; // 1/8 of screen in pixels
@@ -61,6 +61,7 @@ Test Deal with motion 0.1b <button onclick="shuffle(); startGame()">New Game</bu
 		card.style.top='0px';
 	}
 	function moveCard(cardNo,left,top){ // note - these must be in px measurements
+		console.log("M1 "+cardNo+" left "+left+" top "+top;
 		var card=document.getElementById("c"+cardNo);
 		var rect = card.getBoundingClientRect();
 		var m = setInterval(frame,5);
@@ -70,7 +71,7 @@ Test Deal with motion 0.1b <button onclick="shuffle(); startGame()">New Game</bu
 		var dy = top-y1;
 		var nsteps=Mathmax(abs(dx),abs(dy)); // get the biggest different - do this number of steps
 		var n=0;
-		console.log("M "+cardNo+" x"+left+" y"+top+" n"+nsteps);
+		console.log("M2 "+cardNo+" x"+left+" y"+top+" n"+nsteps);
 		function frame() {
 			if (n==nsteps) {
 				clearInterval(m);

@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<!-- FreeCell using svg for the cards and movement rather than children -->
+<!-- FreeCell using svg for the cards and movement in pixels rather than children -->
 <html lang=en>
 <head>
   <link rel="icon" type="image/png" href="/jc.png"/>
@@ -19,6 +19,7 @@
 Test Deal with motion 0.1a <button onclick="shuffle(); startGame()">New Game</button>
 </header>
 <script>
+	columnWidth=screen.width/8; // 1/8 of screen in pixels
   cards = []; // array of card div svg objects
   deck = []; // sort order for the cards
   freecells = [-1,-1,-1,-1]; // holds the cardNo if filled
@@ -41,9 +42,9 @@ Test Deal with motion 0.1a <button onclick="shuffle(); startGame()">New Game</bu
       m=deck[j]; deck[j]=deck[k]; deck[k]=m;
     }
   }
-// a function to deal the deck into absolute positions
+// a function to deal the deck into absolute positions in pixels
   function deal(){
-		var dx=12; var dy=3; // distance between cards 
+		var dx=columnWidth; var dy=Math.floor(columnWidth/4); // distance between cards 
 		for(var i=0;i<52;i++) {
 			startCard(deck[i]); // initially at position 0,0
 			moveCard(deck[i],(i % 8)*dx, Math.floor(i/8)*dy+15);
@@ -51,19 +52,20 @@ Test Deal with motion 0.1a <button onclick="shuffle(); startGame()">New Game</bu
 	}
 	function startCard(cardNo) {
 		var card=document.createElement("div");
-    card.innerHTML=cards[cardNo];
     card.id="c"+cardNo;
+    card.innerHTML=cards[cardNo];
 //    card.style.zindex=z.toString();
     card.style.position='absolute';
-    card.style.width='12vw';
-		card.style.left='0vw';
-		card.style.top='0vw';
+    card.style.width=columnWidth+"px";
+		card.style.left='0px';
+		card.style.top='0px';
 	}
-	function moveCard(cardNo,left,top){ // note - these must be in vw measurements
+	function moveCard(cardNo,left,top){ // note - these must be in px measurements
 		var card=document.getElementById("c"+cardNo);
+		var rect = card.getBoundingClientRect();
 		var m = setInterval(frame,5);
-		var x1 = (card.style.left).slice(0,-2); // trim off "vw"
-		var y1 = (card.style.top).slice(0,-2); // trim off "vw"
+		var x1 = (rect.left).slice(0,-2); // trim off "px"
+		var y1 = (rect.top).slice(0,-2); // trim off "px"
 		var dx = left-x1;
 		var dy = top-y1;
 		var nsteps=Mathmax(abs(dx),abs(dy)); // get the biggest different - do this number of steps
@@ -74,8 +76,8 @@ Test Deal with motion 0.1a <button onclick="shuffle(); startGame()">New Game</bu
 				clearInterval(m);
 			}else{
 				x=Math.floor(x1+n*dx/nsteps); y=Math.floor(y1+n*dy/nsteps);
-				card.style.left = x+"vw";
-				card.style.top = y+"vw";
+				card.style.left = x+"px";
+				card.style.top = y+"px";
 				n++;
 			}
 		}

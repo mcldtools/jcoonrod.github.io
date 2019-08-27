@@ -19,7 +19,7 @@
 Test Deal with motion 0.1d <button onclick="shuffle(); startGame()">New Game</button>
 </header>
 <script>
-	columnWidth=screen.width/8; // 1/8 of screen in pixels
+	columnWidth=Math.floor(screen.width/8); // 1/8 of screen in pixels
   cards = []; // array of card div svg objects
   deck = []; // sort order for the cards
   freecells = [-1,-1,-1,-1]; // holds the cardNo if filled
@@ -33,7 +33,6 @@ Test Deal with motion 0.1d <button onclick="shuffle(); startGame()">New Game</bu
   var first; // index within the nodes for the first that could be moved
   var last; // " the top card
   createCards();
-
 // a function to shuffle the deck;
   function shuffle(){
     for(i=0; i<100; i++) { // do 100 random interchanges
@@ -44,7 +43,7 @@ Test Deal with motion 0.1d <button onclick="shuffle(); startGame()">New Game</bu
   }
 // a function to deal the deck into absolute positions in pixels
   function deal(){
-		var dx=columnWidth; var dy=Math.floor(columnWidth/4); // distance between cards 
+		var dx=columnWidth; var dy=Math.floor(columnWidth/4); // distance between cards
 		for(var i=0;i<52;i++) {
 			startCard(deck[i]); // initially at position 0,0
 			moveCard(deck[i],(i % 8)*dx, Math.floor(i/8)*dy+15);
@@ -59,7 +58,9 @@ Test Deal with motion 0.1d <button onclick="shuffle(); startGame()">New Game</bu
     card.style.width=columnWidth+"px";
 		card.style.left='0px';
 		card.style.top='0px';
+		card.onclick="alert(cardNo)";
 		document.body.appendChild(card);
+
 	}
 	function moveCard(cardNo,left,top){ // note - these must be in px measurements
 		console.log("M1 "+cardNo+" left "+left+" top "+top);
@@ -70,7 +71,7 @@ Test Deal with motion 0.1d <button onclick="shuffle(); startGame()">New Game</bu
 		var y1 = rect.top;
 		var dx = left-x1;
 		var dy = top-y1;
-		var nsteps=Mathmax(abs(dx),abs(dy)); // get the biggest different - do this number of steps
+		var nsteps=Math.max(Math.abs(dx),Math.abs(dy)); // get the biggest different - do this number of steps
 		var n=0;
 		console.log("M2 "+cardNo+" x"+left+" y"+top+" n"+nsteps);
 		function frame() {
@@ -84,7 +85,6 @@ Test Deal with motion 0.1d <button onclick="shuffle(); startGame()">New Game</bu
 			}
 		}
 	}
-
   function startGame(){
     deal();
   }

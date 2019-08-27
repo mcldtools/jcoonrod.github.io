@@ -68,6 +68,7 @@ Test Deal with motion 0.1a <button onclick="shuffle(); startGame()">New Game</bu
 		var dy = top-y1;
 		var nsteps=Mathmax(abs(dx),abs(dy)); // get the biggest different - do this number of steps
 		var n=0;
+		console.log("M "+cardNo+" x"+left+" y"+top+" n"+nsteps);
 		function frame() {
 			if (n==nsteps) {
 				clearInterval(m);
@@ -75,6 +76,7 @@ Test Deal with motion 0.1a <button onclick="shuffle(); startGame()">New Game</bu
 				x=Math.floor(x1+n*dx/nsteps); y=Math.floor(y1+n*dy/nsteps);
 				card.style.left = x+"vw";
 				card.style.top = y+"vw";
+				n++;
 			}
 		}
 	}

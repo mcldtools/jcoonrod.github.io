@@ -24,7 +24,7 @@
 </head>
   
 <body>
-  <p>One-Click FreeCell 0.2q &#x1F482;
+  <p>One-Click FreeCell 0.2r &#x1F482;
   <button onclick="shuffle(); deal()">New Game</button>
   <button onclick="deal()">Replay</button>
   </p>
@@ -269,6 +269,7 @@ if ('serviceWorker' in navigator) {
     function frame2() {
       if (nmove==0) {
         clearInterval(m);
+        showFoundations();
       } else {
   			nmove=0;
 	      for(j=0;j<8;j++) { // try pop from the cascades
@@ -279,7 +280,8 @@ if ('serviceWorker' in navigator) {
           	if(aces[suit]==(val-1)) {
             	nmove++;
             	aces[suit]++;
-            	popCard(j,topID,"a"+suit);
+              cascade=document.getElementById("c"+j);
+  	          cascade.removeChild(cascade.lastChild);
           	}
   				}
         }
@@ -288,19 +290,25 @@ if ('serviceWorker' in navigator) {
           cardNo=freecells[j];
           if(cardNo>-1) {
             val=cardNo % 13; suit=Math.floor(cardNo/13);
-            var tst=(aces[suit]==(val-1));
             if(aces[suit]==(val-1)) {
               nmove++;
-              aces[suit]++;
+              aces[suit]=val;
               freecells[j]=-1;
               document.getElementById("s"+j).innerHTML="";
-              document.getElementById("a"+suit).innerHtml=cards[cardNo];
             }
           }
         }
       }
     }  // end frame
   } // end try aces
+  function showFoundations(){
+    for(i=0;i<4;i++) {
+      if(aces[i]>-1) {
+        var card=cards[i*13+aces[i]];
+        document.getElementById("a"+i).innerHTML=card;
+      }
+    }
+  }
 
   function tryFreeCells(j){
     free=-1;

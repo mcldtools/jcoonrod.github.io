@@ -12,3 +12,12 @@ MANY thanks to jamesjohnson280 for his Medium Article "Hello World" which is an 
 
 The icon is based on the open source twemoji file for the crown emoji
 
+# Roadmap
+0.2 - playable and described in medium.
+0.3 - limit the automatic moves to Foundations
+0.4 - establish full undo and ability to list the moves
+0.5 - recreate the microsoft 32000 using the David Blau's http://solitairelaboratory.com/mshuffle.txt
+
+# License
+See GNU license in this folder
+

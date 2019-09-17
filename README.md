@@ -1,4 +1,4 @@
-## Frecell based on SVG and Emoticons
+## FreeCell based on SVG and Emoticons
 
 This is a PWA version of Freecell, rewritten from a web version I wrote in 2001 and now rewritten consistent with what I hope are best practices in the 2019 web. 
 

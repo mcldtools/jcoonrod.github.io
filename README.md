@@ -10,6 +10,8 @@ There are extra files in this repository not in the manifest - namely the svg fi
 
 MANY thanks to jamesjohnson280 for his Medium Article "Hello World" which is an excellent tutorial on writing a PWA. I've tried other tutorials, but his actually worked for me.
 
+ADDITIONAL thanks to kosamari for solving the problem of updating PWAs hosted on github: https://gist.github.com/kosamari/7c5d1e8449b2fbc97d372675f16b566e
+
 The icon is based on the open source twemoji file for the crown emoji
 
 # Roadmap
@@ -20,4 +22,3 @@ The icon is based on the open source twemoji file for the crown emoji
 
 # License
 See GNU license in this folder
-

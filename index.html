@@ -188,6 +188,7 @@ if ('serviceWorker' in navigator) {
         destId=topCardId(k); val2=getVal(destId); color2=getColor(destId);
         if((color!==color2 && val+1==val2)) {
           nmove++;
+					saveMove('c',j,m,'c',k); // this defines a move from one cascade to another
           removeStack(j,m)
           appendStack(k,m);
         }
@@ -197,6 +198,18 @@ if ('serviceWorker' in navigator) {
     }
     return nmove;
   }
+	function saveMove(cj,j,m,ck,k) {
+		moves.push([cj,j,m,ck,k]);
+	}
+	function undo(){
+		if(moves.length) {
+			move=moves.pop();
+			if(move[0]=='c' && move[3]=='c') {
+				removeStack(move[4],move[2]);
+				appendStack(move[1],move[2]));
+			}
+		}
+	}
 
 	function computeFree() { // What is the biggest move we can make
 	  nopen=0;

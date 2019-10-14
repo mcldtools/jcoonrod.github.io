@@ -31,7 +31,7 @@
 </head>
   
 <body>
-  <p>One-Click FreeCell 0.3d &#x1F482;
+  <p>One-Click FreeCell 0.3e &#x1F482;
   <button onclick="shuffle(); deal()">New Game</button>
   <button onclick="deal()">Replay</button>
   <button onclick="undo()">Undo (under construction)</button>
@@ -204,7 +204,7 @@ if ('serviceWorker' in navigator) {
 			move=moves.pop();
 			cj=move[0]; j=move[1]; ck=move[2]; k=move[3]; n=move[4];
 			tomove.length=0; // clear this array - a bit like remove stack
-			nodes=document.getElementById(ck).childNodes;
+			nodes=document.getElementById('c'+k).childNodes;
 			last=nodes.length-1; m=last-m+1;
 			removeStack(k,m);
 			appendStack(j,m);

@@ -34,7 +34,7 @@
   <p>One-Click FreeCell 0.3a &#x1F482;
   <button onclick="shuffle(); deal()">New Game</button>
   <button onclick="deal()">Replay</button>
-  <button onclick="Undo()">Undo</button>
+  <button onclick="Undo()">Undo (under construction)</button>
   </p>
   <div class=row>
   <div id=s0 class=s onclick="dropFree(0)"></div>
@@ -68,6 +68,7 @@ if ('serviceWorker' in navigator) {
 // Set up a 1-d array of the unicode values for the cards 0-51
 // Note - Unicode sets up 16 cards per suit, including two queens
 // Unlike the old game, I want to only use the DOM
+// Each move of n cards from x1, iy1 to x2, iy2 (an array of 5 items) 
   cards = []; // array of card div svg objects
 	moves = []; // stack of moves that can then be undone
   tomove = []; // array of cards to move

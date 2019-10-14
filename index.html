@@ -31,7 +31,7 @@
 </head>
   
 <body>
-  <p>One-Click FreeCell 0.3g &#x1F482;
+  <p>One-Click FreeCell 0.3h &#x1F482;
   <button onclick="shuffle(); deal()">New Game</button>
   <button onclick="deal()">Replay</button>
   <button onclick="undo()">Undo (under construction)</button>
@@ -203,13 +203,25 @@ if ('serviceWorker' in navigator) {
 
 	function undo(){ // at the moment, this just works for cascade to cascade
 		if(moves.length) {
+			cardid=-1;
 			move=moves.pop();
 			cj=move[0]; j=move[1]; ck=move[2]; k=move[3]; n=move[4];
-			tomove.length=0; // clear this array - a bit like remove stack
-			nodes=document.getElementById('c'+k).childNodes;
-			last=nodes.length-1; m=last-n+1;
-			removeStack(k,m);
-			appendStack(j,m);
+			if(cj=='c' && ck=='c') {
+				tomove.length=0; // clear this array - a bit like remove stack
+				nodes=document.getElementById('c'+k).childNodes;
+				last=nodes.length-1; m=last-n+1;
+				removeStack(k,m);
+				appendStack(j,m);
+			}elseif(ck=='f') {
+				cardid=freecells[k];
+				freecells[k]=-1;
+			}elseif(ck=='a') {
+				cardid=aces[k]+13*k;
+			}
+			if(cardid>-1 && cj=='c') {
+				appendCard();
+			}elseif(
+				
 		}
 	}
 
@@ -268,6 +280,7 @@ if ('serviceWorker' in navigator) {
 				destId=topCardId(j); destVal=getVal(destId); destSuit=getSuit(destId);
 				destColor=(destSuit==0 || destSuit==3) ? 'b' : 'r';
 				if((val==destVal-1) && (color !== destColor)) {
+					moves.push(['f',k,'c',j,1]); // this defines a move from freecell to cascade
 					appendCard(cardNo,j);
 					freecells[k]=-1;
 					document.getElementById("s"+k).innerHTML="";
@@ -278,6 +291,7 @@ if ('serviceWorker' in navigator) {
 			j=0; // if nothing moved to a full cascade, try empty cascades!
 			while(j<8 && nmove==0) {
 			  if(cascadeEmpty(j)) {
+					moves.push(['f',k,'c',j,1]); // this defines a move from freecell to cascade
  					appendCard(cardNo,j);
 					freecells[k]=-1;
 					document.getElementById("s"+k).innerHTML="";
@@ -317,6 +331,7 @@ if ('serviceWorker' in navigator) {
       	    val=getVal(topID);
           	if(aces[suit]==(val-1)) {
             	nmove++;
+							moves.push(['c',j,'a',suit,1]); // this defines a move from freecell to cascade
             	aces[suit]++;
               cascade=document.getElementById("c"+j);
   	          cascade.removeChild(cascade.lastChild);
@@ -330,6 +345,7 @@ if ('serviceWorker' in navigator) {
             val=cardNo % 13; suit=Math.floor(cardNo/13);
             if(aces[suit]==(val-1)) {
               nmove++;
+							moves.push(['f',j,'a',suit,1]); // this defines a move from freecell to cascade
               aces[suit]=val;
               freecells[j]=-1;
               document.getElementById("s"+j).innerHTML="";

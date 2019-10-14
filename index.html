@@ -31,7 +31,7 @@
 </head>
   
 <body>
-  <p>One-Click FreeCell 0.3c &#x1F482;
+  <p>One-Click FreeCell 0.3d &#x1F482;
   <button onclick="shuffle(); deal()">New Game</button>
   <button onclick="deal()">Replay</button>
   <button onclick="undo()">Undo (under construction)</button>
@@ -188,8 +188,8 @@ if ('serviceWorker' in navigator) {
         destId=topCardId(k); val2=getVal(destId); color2=getColor(destId);
         if((color!==color2 && val+1==val2)) {
           nmove++;
-					saveMove('c',j,m,'c',k); // this defines a move from one cascade to another
-          removeStack(j,m)
+					moves.push(['c',j,'c',k,last-m+1]); // this defines a move from one cascade to another
+          removeStack(j,m);
           appendStack(k,m);
         }
         i++;
@@ -198,16 +198,16 @@ if ('serviceWorker' in navigator) {
     }
     return nmove;
   }
-	function saveMove(cj,j,m,ck,k) {
-		moves.push([cj,j,m,ck,k]);
-	}
-	function undo(){
+
+	function undo(){ // at the moment, this just works for cascade to cascade
 		if(moves.length) {
 			move=moves.pop();
-			if(move[0]=='c' && move[3]=='c') {
-				removeStack(move[4],move[2]);
-				appendStack(move[1],move[2]);
-			}
+			cj=move[0]; j=move[1]; ck=move[2]; k=move[3]; n=move[4];
+			tomove.length=0; // clear this array - a bit like remove stack
+			nodes=document.getElementById(ck).childNodes;
+			last=nodes.length-1; m=last-m+1;
+			removeStack(k,m);
+			appendStack(j,m);
 		}
 	}
 

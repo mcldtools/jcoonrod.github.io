@@ -31,7 +31,7 @@
 </head>
   
 <body>
-  <p>One-Click FreeCell 0.3f &#x1F482;
+  <p>One-Click FreeCell 0.3g &#x1F482;
   <button onclick="shuffle(); deal()">New Game</button>
   <button onclick="deal()">Replay</button>
   <button onclick="undo()">Undo (under construction)</button>
@@ -80,9 +80,9 @@ if ('serviceWorker' in navigator) {
   suits = ["&spadesuit;","&heartsuit;","&diamondsuit;","&clubsuit;"];
   faces = ["&#x1F482","&#x1F478;","&#x1F934;"]; // emojis for facecards
   vals = ['A','2','3','4','5','6','7','8','9','10','J','Q','K'];
-  var nodes; // this gets defined by stackable
-  var first; // index within the nodes for the first that could be moved
-  var last; // " the top card
+  var nodes = []; // this gets defined by stackable
+  var first=0; // index within the nodes for the first that could be moved
+  var last=0; // " the top card
   createCards();
 
 	// FUNCTIONS from top down	// make numbers bigger for phones

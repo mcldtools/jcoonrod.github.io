@@ -32,15 +32,15 @@
   </p>
 <div class=row>
   <div id=s0 class=s onclick="flop(0)"></div>
-  <div id=c1 class=c onclick="flop(1)"></div>
-  <div id=c2 class=c onclick="flip(2)"></div>
-  <div id=c3 class=c onclick="flip(3)"></div>
-  <div id=c4 class=c onclick="flip(4)"></div>
-  <div id=c5 class=c onclick="flip(5)"></div>
-  <div id=c6 class=c onclick="flip(6)"></div>
-  <div id=c7 class=c onclick="flip(7)"></div>
-  <div id=c8 class=c onclick="flip(9)"></div>
-  <div id=c9 class=c onclick="flip(9)"></div>
+  <div id=s1 class=s></div>
+  <div id=s2 class=s></div>
+  <div id=s3 class=s></div>
+  <div id=s4 class=s></div>
+  <div id=s5 class=s></div>
+  <div id=s6 class=s></div>
+  <div id=s7 class=s></div>
+  <div id=s8 class=s></div>
+  <div id=s9 class=s></div>
 </div>
 
 <div class=row>
@@ -76,6 +76,7 @@ if ('serviceWorker' in navigator) {
   suits = ["&spadesuit;","&heartsuit;","&diamondsuit;","&clubsuit;"];
   faces = ["&#x1F482","&#x1F478;","&#x1F934;"]; // emojis for facecards
   vals = ['A','2','3','4','5','6','7','8','9','10','J','Q','K'];
+	back= "
   var nodes = []; // this gets defined by stackable
   var first=0; // index within the nodes for the first that could be moved
   var last=0; // " the top card
@@ -85,7 +86,7 @@ if ('serviceWorker' in navigator) {
 	function createCards(){
 		var size=( screen.width<600 ? 70 : 45);	
     for (n=0;n<52;n++) { // create 52 svg cards as strings in this array - innerHTML for divs
-      deck[n]=n; // initialize the deck pre-shuffle
+      deck[n]=n; deck[n+52]=n; // initialize two decks pre-shuffle -- VARIATION for two 4-suit decks
 			var suit=Math.floor(n/13); 
 			var f=''; if(suit==1 || suit==2) f=' fill="red"'; // optionally paint the red suits red
 			var val = n % 13;
@@ -98,11 +99,11 @@ if ('serviceWorker' in navigator) {
 		}
 	}
 	
-	// a function to shuffle the deck;
+	// a function to shuffle two decks together;
   function shuffle(){
     for(i=0; i<100; i++) { // do 100 random interchanges
-      j=Math.floor(52*Math.random());
-      k=Math.floor(52*Math.random());
+      j=Math.floor(104*Math.random());
+      k=Math.floor(104*Math.random());
       m=deck[j]; deck[j]=deck[k]; deck[k]=m;
     }
   }

@@ -31,7 +31,7 @@
 </head>
   
 <body>
-  <p>One-Click FreeCell 0.3m &#x1F482;
+  <p>One-Click FreeCell 0.3n &#x1F482;
   <button onclick="shuffle(); deal()">New Game</button>
   <button onclick="deal()">Replay</button>
   <button onclick="undo()">Undo</button>
@@ -372,6 +372,7 @@ if ('serviceWorker' in navigator) {
     for(k=0;k<4;k++) if(freecells[k]==-1) free=k;
     if(free>-1) {
       t=topCardId(j);
+			moves.push(['c',j,'f',free,1]); // this defines a move from cascade to freecell
       freecells[free]=parseInt(t.substring(1)); // place the cardno in there for easy move later
       popCard(j,t,"s"+free);
       return 1;

@@ -219,9 +219,8 @@ if ('serviceWorker' in navigator) {
 				cardid=aces[k]+13*k;
 			}
 			if(cardid>-1 && cj=='c') {
-				appendCard();
-			}elseif(
-				
+				appendCard(cards[cardid],j);
+			}
 		}
 	}
 

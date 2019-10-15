@@ -31,7 +31,7 @@
 </head>
   
 <body>
-  <p>One-Click FreeCell 0.3h &#x1F482;
+  <p>One-Click FreeCell 0.3i &#x1F482;
   <button onclick="shuffle(); deal()">New Game</button>
   <button onclick="deal()">Replay</button>
   <button onclick="undo()">Undo (under construction)</button>
@@ -212,10 +212,10 @@ if ('serviceWorker' in navigator) {
 				last=nodes.length-1; m=last-n+1;
 				removeStack(k,m);
 				appendStack(j,m);
-			}elseif(ck=='f') {
+			} else if(ck=='f') {
 				cardid=freecells[k];
 				freecells[k]=-1;
-			}elseif(ck=='a') {
+			} else if(ck=='a') {
 				cardid=aces[k]+13*k;
 			}
 			if(cardid>-1 && cj=='c') {

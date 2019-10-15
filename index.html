@@ -31,10 +31,10 @@
 </head>
   
 <body>
-  <p>One-Click FreeCell 0.3l &#x1F482;
+  <p>One-Click FreeCell 0.3m &#x1F482;
   <button onclick="shuffle(); deal()">New Game</button>
   <button onclick="deal()">Replay</button>
-  <button onclick="undo()">Undo (under construction)</button>
+  <button onclick="undo()">Undo</button>
   </p>
   <div class=row>
   <div id=s0 class=s onclick="dropFree(0)"></div>
@@ -218,8 +218,9 @@ if ('serviceWorker' in navigator) {
 				freecells[k]=-1;
 			} else if(ck=='a') {
 				cardid=aces[k]+13*k;
-				document.getElementById("a"+k).innerHTML="";
 				aces[k]--;
+				if(aces[k]==-1) {card="";} else {card=cards[cardid-1];}
+				document.getElementById("a"+k).innerHTML=card;				
 			}
 			if(cardid>-1 && cj=='c') {
 				appendCard(cardid,j);

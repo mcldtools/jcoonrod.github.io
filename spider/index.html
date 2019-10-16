@@ -18,6 +18,7 @@
     div.row {display:flex; flex-wrap:nowrap; flex-direction:row; justify-content:space-evenly;}
     div.a {position:absolute;background:red;color:white;top:40%;left:40%;padding:1vw;font-size:3vw;}
     div.s {width:9%;height:14vw; background:lightgreen;}
+    div.x {width:9%;height:14vw;}
     div.c {height:80vw;width:9%;position:relative;}
     div.r {line-height:85%; letter-spacing:80%; font-size:14vw; color:red; background:white;}
     div.b {line-height:85%; letter-spacing:80%; font-size:14vw; background:white;}
@@ -25,14 +26,14 @@
 </head>
   
 <body>
-  <p>Spider Solitaire
+  <p>Spider Solitaire .1a
   <button onclick="shuffle(); deal()">New Game</button>
   <button onclick="deal()">Replay</button>
   <button onclick="undo()">Undo</button>
   </p>
 <div class=row>
   <div id=s0 class=s onclick="flop(0)"></div>
-  <div id=s1 class=s></div>
+  <div id=s1 class=x></div>
   <div id=s2 class=s></div>
   <div id=s3 class=s></div>
   <div id=s4 class=s></div>

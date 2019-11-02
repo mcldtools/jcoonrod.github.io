@@ -26,7 +26,7 @@
 </head>
   
 <body>
-  <p>Spider Solitaire α.2
+  <p>Spider Solitaire .1g
   <button onclick="shuffle(); deal()">New</button>
   <button onclick="deal()">Replay</button>
   <button onclick="undo()">Undo</button>
@@ -72,8 +72,9 @@
 // Unlike the old game, I want to only use the DOM
 // Each move of n cards from x1, iy1 to x2, iy2 (an array of 5 items)
   cards = []; // array of card div svg objects
+	moves = []; // stack of moves that can then be undone
 	ndealt=0; // how many cards have been dealt?
-	moves = [];
+  tomove = []; // array of cards to move
   deck = []; // sort order for the cards
   nempty = 0; // computed # empty cascades
   suits = ["&spadesuit;","&heartsuit;","&diamondsuit;","&clubsuit;"];
@@ -83,6 +84,7 @@
 	back= '<svg viewBox="0 0 200 280">'
       + '<rect x="2" y="2" rx="20" ry="20" width="194" height="274" style="fill:lightblue;stroke:white;stroke-width:8;" />'
       + '<text font-size="120" x="97" y="137" file="white" text-anchor="middle" alignment-baseline="central">🕸️</text></svg>';
+  var nodes = []; // this gets defined by stackable
   var first=0; // index within the nodes for the first that could be moved
   var last=0; // " the top card
   var flips=[];
@@ -136,25 +138,17 @@
       }
     }
   }
-  function next10() { // put the next 10 face up
+  function next10(){ // put the next 10 face up
     if(ndealt<104) { // only do this if there are cards left
-      var i=ndealt;
-      var m = setInterval(frame,30);
-      function frame() {
-        if(i==(ndealt+10)) {
-          clearInterval(m);
-          ndealt=i;
-        }else{
-          j=i%10;
-          appendCard(i,j,1);
-          i++;
-        }
-      }
+      for(i=ndealt;i<ndealt+10;i++) appendCard(i,i%10,1);
+      ndealt=ndealt+10;
+      if(ndealt==104) document.getElementById('s0').innerHTML="";
     }
   }
 
   function clearBoard(){
 		moves.length=0; // clear these working arrays
+		nodes.length=0;
     for(j=0;j<10;j++) { // clear cascades
       const cascade=document.getElementById("c"+j);
       while (cascade.firstChild) cascade.removeChild(cascade.firstChild);
@@ -163,13 +157,25 @@
 	
   function faceup(j) { // make sure top card is face up on this cascade
     id=topCardId(j);
-    if(id) {
-      i=parseInt(id.substr(1));
-      flips[i]=1;
-      document.getElementById(id).innerHTML=cards[deck[i]];
-    }
+    i=parseInt(id.substr(1));
+    flips[i]=1;
+    card=document.getElementById(id).innerHTML=cards[deck[i]];
   }
   
+
+  function removeStack(j,m) {
+    tomove.length=0; // clear it off
+    cascade=document.getElementById("c"+j);
+    for(n=m;n<=last;n++) {
+      l=nodes[n].id;
+      tomove.push(l.substring(1)); // cardNo
+    }
+    for(n=m;n<=last;n++) cascade.removeChild(cascade.lastElementChild);
+  }
+  function appendStack(k,m) {
+    for(n=m;n<=last;n++) appendCard(tomove[n-m],k);
+  }
+
 	function undo(){ // at the moment, this just works for cascade to cascade
 		if(moves.length) {
 			cardid=-1;
@@ -188,66 +194,62 @@
 		}
 	}
 
+	function computeFree() { // What is the biggest move we can make
+	}
+
+	function stackable(j) { // return the global values of first and last
+	  nodes=document.getElementById("c"+j).childNodes;
+	  last=nodes.length-1; // index of top node in node list
+	  if(last<1) {
+	    first=last;
+	  }else{
+      first=last-1; // index on how many can be stacked
+      match=1; // test to see whether it can be stacked
+      while(first>-1 && match) {
+        id1=nodes[first].id; id2=nodes[first+1].id;
+        val1=getVal(id1); val2=getVal(id2);
+        color1=getColor(id1); color2=getColor(id2); // returns 'r' or 'b'
+        match=(val1==(val2+1) && color1!==color2); // true or false
+        first--;
+ //       console.log("F "+first+" L "+last+" M "+match)
+      }
+      first=(first==-1 && match) ? 0 : first+2;
+    }
+	}
 
 	function cascadeEmpty(j) {
 	  return (document.getElementById("c"+j).childElementCount==0)
 	}
-	function tryMove(cardNo) { // version .2 moves a stack by reading the z values
-	  var toMove = []; // stack of moves that can then be undone
-	  console.log('cardNo='+cardNo);
-    if(flips[cardNo]) { // first, learn about the clicked card
-      c1=deck[cardNo];
-      v1=c1%13; // value of clicked card
-      id='v'+cardNo; // node id
-      card1=document.getElementById(id);
-      z1=card1.style.zindex; // index within the nodes
-      cascade1=card1.parentNode;
-      j=parseInt(cascade1.id.substr(1));
-      nodes=cascade1.childNodes;
-  	  z2=nodes.length; // get the # of child nodes
-  	  console.log('z1='+z1+' z2='+z2+' id='+id+' v1='+v1);
-  	  // next - if this is more than one card, are they in the correct order?
-  	  nmove=0;
-  	  z=z1; v=v1;
-  	  while(z<z2 && !nmove) { // make sure items in stack can move together
-  	    c2=deck[parseInt(nodes[z].id.substr(1))];
-  	    console.log('c1='+c1+' c2='+c2);
-  	    if(c1!==(c2+1)) nmove=1;
-  	    c1=c2;
-  	    z++;
-  	  }
-  	  k=1;
+	function tryMove(cardNo) {
+    // attempt to move a cascade to another
+    // this is totally different than the version in FreeCell
+    // first - is this card at the top of a cascade?
+    id='v'+cardNo;
+    card=document.getElementById(id);
+    cascade1=card.parentNode;
+    j=parseInt(cascade1.id.substr(1,1));
+    topid=cascade1.lastElementChild.id;
+    console.log('j='+j+card);
+    if(id==topid) {
+      v1=deck[cardNo]%13; // value of clicked card
+      k=1;nmove=0;
       while(k<10 && !nmove) {
-        stackable=0; // default to not stackable
         m=(j+k)%10; // next cascade to the right
-        k++;
         cascade2=document.getElementById('c'+m);
-        card2=cascade2.lastElementChild;
-        if(card2) {
-          c2=card2.id;
-          right=parseInt(c2.substr(1)); // id of top trimmed
-          v2=deck[right]%13;
-          console.log('m='+m+'c2='+c2+' r='+right+' v1='+v1+' v2='+v2);
-          if(v2==v1+1) stackable=1;
-        }else{
-          stackable=1; // the column is empty, so it can accept stacks
-        }
-        if(stackable) {
+        c2=cascade2.lastElementChild.id;
+        right=parseInt(c2.substr(1)); // id of top trimmed
+        v2=deck[right]%13;
+        console.log('cardNo='+cardNo+' m='+m+'c2='+c2+' r='+right+' v1='+v1+' v2='+v2);
+        if(v2==v1+1) {
           nmove=1;
-          for(z=z1;z<=z2;z++) { // copy the stack into toMove
-            toMove.push( parseInt(nodes[z-1].id.substr(1)) );
-          }
-          for(z=z1;z<=z2;z++) { // copy the stack into toMove
-            cascade1.removeChild(cascade1.lastChild);
-          }
-          for(i=0;i<toMove.length;i++) {
-              appendCard(toMove[i],m,1);
-          }
-          faceup( parseInt(cascade1.id.substr(1)) ); // flip the top card in cascade j if not already flipped
+          appendCard(cardNo,m,1);
+          cascade1.removeChild(cascade1.lastChild);
+          faceup(j); // flip the top card in cascade j if not already flipped
         }
+        k++;
       }
-      k++;
     }
+    
   }
 
 	

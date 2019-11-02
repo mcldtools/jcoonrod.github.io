@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<!-- Spider Solitaire using svg for the cards - all in one HTML page -->
+<!-- One-click Spider Solitaire using svg for the cards - all in one HTML page -->
 <html lang=en>
 <head>
 	<link rel="canonical" href="https://jcoonrod.github.io/spider" />
@@ -26,10 +26,10 @@
 </head>
   
 <body>
-  <p>Spider Solitaire α.2
+  <p>1-Click Spider Solitaire β.4
   <button onclick="shuffle(); deal()">New</button>
   <button onclick="deal()">Replay</button>
-  <button onclick="undo()">Undo</button>
+<!--  <button onclick="undo()">Undo</button> -->
   Suits:<select onchange="setSuit(event);">
     <option value="1">1</option><option value="2">2</option><option value="4">4</option></select>
   </p>
@@ -75,6 +75,7 @@
 	ndealt=0; // how many cards have been dealt?
 	moves = [];
   deck = []; // sort order for the cards
+  nfoundation=0; // how many foundation piles have gone up?
   nempty = 0; // computed # empty cascades
   suits = ["&spadesuit;","&heartsuit;","&diamondsuit;","&clubsuit;"];
   nsuit = 1; // default is just one suit
@@ -144,6 +145,7 @@
         if(i==(ndealt+10)) {
           clearInterval(m);
           ndealt=i;
+          if(ndealt==104) document.getElementById("s0").innerHTML="";
         }else{
           j=i%10;
           appendCard(i,j,1);
@@ -154,6 +156,7 @@
   }
 
   function clearBoard(){
+    nfoundation=0; // how many foundation piles have gone up?
 		moves.length=0; // clear these working arrays
     for(j=0;j<10;j++) { // clear cascades
       const cascade=document.getElementById("c"+j);
@@ -161,7 +164,7 @@
     }
   }
 	
-  function faceup(j) { // make sure top card is face up on this cascade
+  function faceUp(j) { // make sure top card is face up on this cascade
     id=topCardId(j);
     if(id) {
       i=parseInt(id.substr(1));
@@ -187,11 +190,15 @@
 			}
 		}
 	}
-
-
-	function cascadeEmpty(j) {
-	  return (document.getElementById("c"+j).childElementCount==0)
+	
+	function moveUp(j,cardNo) { // move a whole stack of 13 cards to a foundation
+	  cascade=document.getElementById('c'+j);
+	  document.getElementById('f'+nfoundation).innerHTML=cards[deck[cardNo]];
+	  nfoundation++;
+	  for(i=0;i<13;i++) cascade.removeChild(cascade.lastChild);
+	  faceUp(j);
 	}
+	
 	function tryMove(cardNo) { // version .2 moves a stack by reading the z values
 	  var toMove = []; // stack of moves that can then be undone
 	  console.log('cardNo='+cardNo);
@@ -206,6 +213,7 @@
       nodes=cascade1.childNodes;
   	  z2=nodes.length; // get the # of child nodes
   	  console.log('z1='+z1+' z2='+z2+' id='+id+' v1='+v1);
+
   	  // next - if this is more than one card, are they in the correct order?
   	  nmove=0;
   	  z=z1; v=v1;
@@ -215,6 +223,11 @@
   	    if(c1!==(c2+1)) nmove=1;
   	    c1=c2;
   	    z++;
+  	  }
+  	  if(!nmove && (v1==12) && ((z2-z1)==12)) { // detect a winning stack
+  	    console.log('Winning stack '+j+' cardNo='+cardNo);
+  	    moveUp(j,cardNo);
+  	    nmove=12;
   	  }
   	  k=1;
       while(k<10 && !nmove) {
@@ -243,7 +256,7 @@
           for(i=0;i<toMove.length;i++) {
               appendCard(toMove[i],m,1);
           }
-          faceup( parseInt(cascade1.id.substr(1)) ); // flip the top card in cascade j if not already flipped
+          faceUp( parseInt(cascade1.id.substr(1)) ); // flip the top card in cascade j if not already flipped
         }
       }
       k++;

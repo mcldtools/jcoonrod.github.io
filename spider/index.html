@@ -2,6 +2,11 @@
 <!-- One-click Spider Solitaire using svg for the cards - all in one HTML page -->
 <html lang=en>
 <head>
+  <link rel="manifest" href="/manifest.json">
+	<link rel="apple-touch-icon" href="jc192.png">
+	<meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="green">
+  <meta name="apple-mobile-web-app-title" content="FreeCell">
 	<link rel="canonical" href="https://jcoonrod.github.io/spider" />
 	<meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
 	<meta http-equiv="Pragma" content="no-cache" />
@@ -26,7 +31,7 @@
 </head>
   
 <body>
-  <p>1-Click Spider Solitaire β.6
+  <p>🕸 1-Click Spider Solitaire 1.0
   <button onclick="shuffle(); deal()">New</button>
   <button onclick="deal()">Replay</button>
 <!--  <button onclick="undo()">Undo</button> -->
@@ -61,11 +66,11 @@
 </div>
 
 <script>
-//window.onload = () => { 'use strict'; // register service worker
-//if ('serviceWorker' in navigator) {
-//   navigator.serviceWorker.register('./sw.js');
-//  }
-//}
+window.onload = () => { 'use strict'; // register service worker
+if ('serviceWorker' in navigator) {
+   navigator.serviceWorker.register('./sw.js');
+  }
+}
 
 // Set up a 1-d array of the unicode values for the cards 0-103 (two decks)
 // Note - Unicode sets up 16 cards per suit, including two queens

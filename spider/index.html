@@ -26,7 +26,7 @@
 </head>
   
 <body>
-  <p>1-Click Spider Solitaire β.4
+  <p>1-Click Spider Solitaire β.6
   <button onclick="shuffle(); deal()">New</button>
   <button onclick="deal()">Replay</button>
 <!--  <button onclick="undo()">Undo</button> -->
@@ -74,6 +74,7 @@
   cards = []; // array of card div svg objects
 	ndealt=0; // how many cards have been dealt?
 	moves = [];
+	toMove = []; // array of cards to move
   deck = []; // sort order for the cards
   nfoundation=0; // how many foundation piles have gone up?
   nempty = 0; // computed # empty cascades
@@ -158,10 +159,13 @@
   function clearBoard(){
     nfoundation=0; // how many foundation piles have gone up?
 		moves.length=0; // clear these working arrays
+		toMove.length=0;
+		document.getElementById('s0').innerHTML=back;
     for(j=0;j<10;j++) { // clear cascades
       const cascade=document.getElementById("c"+j);
       while (cascade.firstChild) cascade.removeChild(cascade.firstChild);
     }
+    for(j=0;j<8;j++) document.getElementById("f"+j).innerHTML="";
   }
 	
   function faceUp(j) { // make sure top card is face up on this cascade
@@ -199,6 +203,7 @@
 	  faceUp(j);
 	}
 	
+
 	function tryMove(cardNo) { // version .2 moves a stack by reading the z values
 	  var toMove = []; // stack of moves that can then be undone
 	  console.log('cardNo='+cardNo);
@@ -227,42 +232,49 @@
   	  if(!nmove && (v1==12) && ((z2-z1)==12)) { // detect a winning stack
   	    console.log('Winning stack '+j+' cardNo='+cardNo);
   	    moveUp(j,cardNo);
-  	    nmove=12;
+  	    nmove=13;
   	  }
-  	  k=1;
-      while(k<10 && !nmove) {
-        stackable=0; // default to not stackable
+  	  if(!nmove) {
+  	    toMove.length=0;
+  	    for(z=z1;z<=z2;z++) toMove.push( parseInt(nodes[z-1].id.substr(1)) );
+    	  nmove=tryStack(toMove,v1,j); // first try stack-to-stack
+  	  }
+  	  if(!nmove) nmove=tryEmpty(toMove,j); // then consider empty columns
+    }
+	}
+	function topCardValue(m) { // return -1 on empty, or 0-12 value of top card
+	  cascade2=document.getElementById('c'+m);
+	  v2=-1;
+	  if(cascade2) card=cascade2.lastElementChild;
+	  if(card) v2=deck[ parseInt(card.id.substr(1))]%13;
+	  return v2;
+	}
+	function tryStack(toMove,v1,j) {
+	  nmove=0;
+	  k=1;  // first run through possible stack-to-stack moves
+    while(k<10 && !nmove) {
         m=(j+k)%10; // next cascade to the right
         k++;
-        cascade2=document.getElementById('c'+m);
-        card2=cascade2.lastElementChild;
-        if(card2) {
-          c2=card2.id;
-          right=parseInt(c2.substr(1)); // id of top trimmed
-          v2=deck[right]%13;
-          console.log('m='+m+'c2='+c2+' r='+right+' v1='+v1+' v2='+v2);
-          if(v2==v1+1) stackable=1;
-        }else{
-          stackable=1; // the column is empty, so it can accept stacks
-        }
-        if(stackable) {
-          nmove=1;
-          for(z=z1;z<=z2;z++) { // copy the stack into toMove
-            toMove.push( parseInt(nodes[z-1].id.substr(1)) );
-          }
-          for(z=z1;z<=z2;z++) { // copy the stack into toMove
-            cascade1.removeChild(cascade1.lastChild);
-          }
-          for(i=0;i<toMove.length;i++) {
-              appendCard(toMove[i],m,1);
-          }
-          faceUp( parseInt(cascade1.id.substr(1)) ); // flip the top card in cascade j if not already flipped
-        }
-      }
-      k++;
+        if(topCardValue(m)==(v1+1)) nmove=moveStack(toMove,j,m);
     }
-  }
+    return nmove;
+	}
+	function tryEmpty(toMove,j) {
+    k=1; // second, run through possible empty stack moves
+    while(k<10 && !nmove) { // first run through possible stack-to-stack moves
+        m=(j+k)%10; // next cascade to the right
+        k++;
+        if(topCardValue(m)==-1) nmove=moveStack(toMove,j,m);
+    }
+	}
 
+	function moveStack(toMove,j,m){
+	  cascade1=document.getElementById('c'+j);
+	  for(i=0;i<toMove.length;i++) cascade1.removeChild(cascade1.lastChild);
+	  for(i=0;i<toMove.length;i++) appendCard(toMove[i],m,1);
+    faceUp( parseInt(cascade1.id.substr(1)) ); // flip the top card in cascade j if not already flipped
+    return 1;
+  }
 	
 	function appendCard(i,j,up) { // add a card position i in the deck to the end of cascade j
 	  //when i>43, deal face up
@@ -279,7 +291,6 @@
     card.style.top=y.toString()+"vw";
     cascade.appendChild(card);
 	}
-
 
 	function dropFree(k){ // Drop the card from freecell k to a cascade
 	}

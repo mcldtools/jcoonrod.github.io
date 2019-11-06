@@ -270,9 +270,11 @@ if ('serviceWorker' in navigator) {
 	  nmove=0;
 	  k=1;  // first run through possible stack-to-stack moves
     while(k<10 && !nmove) {
-        m=(j+k)%10; // next cascade to the right
-        k++;
-        if(topCardValue(m)==(v1+1)) nmove=moveStack(toMove,j,m);
+      m=(j+k)%10; // next cascade to the right
+      k++;
+			v2=topCardValue(m);
+			console.log("Stack k="+k+" v1="+v1+" v2="+v2);
+      if(v2==(v1+1)) nmove=moveStack(toMove,j,m);
     }
     return nmove;
 	}

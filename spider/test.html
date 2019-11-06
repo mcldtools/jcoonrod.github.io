@@ -229,7 +229,7 @@ if ('serviceWorker' in navigator) {
   	  while(z<z2 && !nmove) { // make sure items in stack can move together
   	    c2=deck[parseInt(nodes[z].id.substr(1))];
   	    console.log('Check z='+z+' c='+c+' c2='+c2);
-  	    if(c2!==(c+1)) nmove=1;
+  	    if(c!==(c2+1)) nmove=1;
   	    c=c2;
   	    z++;
   	  }

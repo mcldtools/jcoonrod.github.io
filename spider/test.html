@@ -242,7 +242,7 @@ if ('serviceWorker' in navigator) {
   	  if(!nmove) {
   	    toMove.length=0;
   	    for(z=z1;z<=z2;z++) toMove.push( parseInt(nodes[z-1].id.substr(1)) );
-    	  nmove=trySame(toMove,v1,j); // first try stack-to-stack
+    	  nmove=trySame(toMove,c1,j); // first try stack-to-stack
   	  }
 			if(!nmove && nsuit>1) tryStack(toMove,v1,j); // then consider not-same-suit columns
   	  if(!nmove) nmove=tryEmpty(toMove,j); // then consider empty columns
@@ -287,6 +287,7 @@ if ('serviceWorker' in navigator) {
 	}
 
 	function moveStack(toMove,j,m){
+		console.log("moveStack j="+j+" m="+m);
 	  cascade1=document.getElementById('c'+j);
 	  for(i=0;i<toMove.length;i++) cascade1.removeChild(cascade1.lastChild);
 	  for(i=0;i<toMove.length;i++) appendCard(toMove[i],m,1);

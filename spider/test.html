@@ -244,7 +244,7 @@ if ('serviceWorker' in navigator) {
   	    for(z=z1;z<=z2;z++) toMove.push( parseInt(nodes[z-1].id.substr(1)) );
     	  nmove=trySame(toMove,v1,j); // first try stack-to-stack
   	  }
-			if(!nmove && nsuit>1) tryStack(toMove,j); // then consider not-same-suit columns
+			if(!nmove && nsuit>1) tryStack(toMove,v1,j); // then consider not-same-suit columns
   	  if(!nmove) nmove=tryEmpty(toMove,j); // then consider empty columns
     }
 	}
@@ -255,13 +255,15 @@ if ('serviceWorker' in navigator) {
 	  if(card) v2=deck[ parseInt(card.id.substr(1))]%13;
 	  return v2;
 	}
-	function trySame(tomve,v1,j) { // Try moving stack to the same suit
+	function trySame(tomove,c1,j) { // Try moving stack to the same suit
 	  nmove=0;
 	  k=1;  // first run through possible stack-to-stack moves
     while(k<10 && !nmove) {
-        m=(j+k)%10; // next cascade to the right
-        k++;
-        if(topCardValue(m)==(v1+1)) nmove=moveStack(toMove,j,m);
+			m=(j+k)%10; // next cascade to the right
+      k++;
+			c2=deck[topCardId(m).substr(1)];
+			console.log("Same k="+k+" c1="+c1+" c2="+c2);
+			if(c2=(c1+1)) nmove=moveStack(toMove,j,m);
     }
     return nmove;
 	}

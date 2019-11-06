@@ -31,7 +31,7 @@
 </head>
   
 <body>
-  <p>One-Click Spider Solitaire 1c
+  <p>One-Click Spider Solitaire 1d
   <button onclick="shuffle(); deal()">New</button>
   <button onclick="deal()">Replay</button>
 <!--  <button onclick="undo()">Undo</button> -->
@@ -263,7 +263,7 @@ if ('serviceWorker' in navigator) {
       k++;
 			c2=deck[topCardId(m).substr(1)];
 			console.log("Same k="+k+" c1="+c1+" c2="+c2);
-			if(c2=(c1+1)) nmove=moveStack(toMove,j,m);
+			if(c2==(c1+1)) nmove=moveStack(toMove,j,m);
     }
     return nmove;
 	}

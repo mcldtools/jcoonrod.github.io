@@ -188,7 +188,7 @@ if ('serviceWorker' in navigator) {
 			move=moves.pop();
 			cj=move[0]; j=move[1]; ck=move[2]; k=move[3]; n=move[4];
 			if(cj=='c' && ck=='c') {
-				tomove.length=0; // clear this array - a bit like remove stack
+				toMove.length=0; // clear this array - a bit like remove stack
 				nodes=document.getElementById('c'+k).childNodes;
 				last=nodes.length-1; m=last-n+1;
 				removeStack(k,m);
@@ -210,7 +210,6 @@ if ('serviceWorker' in navigator) {
 	
 
 	function tryMove(cardNo) { // version .2 moves a stack by reading the z values
-	  var toMove = []; // stack of moves that can then be undone
 	  console.log('cardNo='+cardNo);
     if(flips[cardNo]) { // first, learn about the clicked card
       c1=deck[cardNo];
@@ -255,7 +254,7 @@ if ('serviceWorker' in navigator) {
 	  if(card) v2=deck[ parseInt(card.id.substr(1))]%13;
 	  return v2;
 	}
-	function trySame(tomove,c1,j) { // Try moving stack to the same suit
+	function trySame(toMove,c1,j) { // Try moving stack to the same suit
 	  nmove=0;
 	  k=1;  // first run through possible stack-to-stack moves
     while(k<10 && !nmove) {

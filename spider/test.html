@@ -31,7 +31,7 @@
 </head>
   
 <body>
-  <p>One-Click Spider Solitaire 1g
+  <p>One-Click Spider Solitaire 1h
   <button onclick="shuffle(); deal()">New</button>
   <button onclick="deal()">Replay</button>
 <!--  <button onclick="undo()">Undo</button> -->
@@ -228,7 +228,7 @@ if ('serviceWorker' in navigator) {
   	  z=z1; v=v1; c=c1;
   	  while(z<z2 && !nmove) { // make sure items in stack can move together
   	    c2=deck[parseInt(nodes[z].id.substr(1))];
-  	    console.log('c='+c+' c2='+c2);
+  	    console.log('Check z='+z+' c='+c+' c2='+c2);
   	    if(c2!==(c+1)) nmove=1;
   	    c=c2;
   	    z++;

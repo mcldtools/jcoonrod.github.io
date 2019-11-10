@@ -241,7 +241,7 @@ if ('serviceWorker' in navigator) {
   	    moveUp(j,cardNo);
   	    nmove=13;
   	  }
-  	  if(!nmove && v1!==12) {
+  	  if(!nmove) {
   	    toMove.length=0;
   	    for(z=z1;z<=z2;z++) toMove.push( parseInt(nodes[z-1].id.substr(1)) );
     	  nmove=trySame(toMove,c1,j); // first try stack-to-stack in same suit

@@ -31,15 +31,15 @@
 </head>
   
 <body>
-  <p>One-Click Spider Solitaire 1.21
+  <p>One-Click Spider Solitaire 1.22
   <button onclick="shuffle(); deal(0)">New</button>
-  <button onclick="deal(0)">Replay</button>
+  <button onclick="deal()">Replay</button>
 <!--  <button onclick="undo()">Undo</button> -->
   Suits:<select onchange="setSuit(event);">
     <option value="1">1</option><option value="2">2</option><option value="4">4</option></select>
   </p>
 <div class=row>
-  <div id=s0 class=s onclick="deal(ndealt)"></div> 
+  <div id=s0 class=s onclick="if(nsuit==0){shuffle();deal();}else{next10();}"></div> 
   <div id=s1 class=x></div>
   <div id=f0 class=s></div>
   <div id=f1 class=s></div>
@@ -98,7 +98,6 @@ if ('serviceWorker' in navigator) {
 
 	// FUNCTIONS from top down	// make numbers bigger for phones
   function setSuit(event) { nsuit=event.target.value; createCards();}
-  
 	function createCards(){ // creates 13, 26 or 52 dependuing on nsuit for spider
 		var size=( screen.width<600 ? 70 : 45);
     for (n=0;n<(13*nsuit);n++) { // create 52 svg cards as strings in this array - innerHTML for divs
@@ -127,9 +126,7 @@ if ('serviceWorker' in navigator) {
     }
   }
 
-  function deal(isdealt){ // does different things if the game has not already started
-		if(isdealt) { next10(); }
-		else {
+  function deal(){ // does different things if the game has not already started
 	    clearBoard();
 			var i=0;
 			var m = setInterval(frame,30);
@@ -144,7 +141,6 @@ if ('serviceWorker' in navigator) {
         	i++;
       	}
     	}
-		}
   }
   function next10() { // put the next 10 face up
     if(ndealt<104) { // only do this if there are cards left

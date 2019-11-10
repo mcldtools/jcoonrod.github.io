@@ -31,15 +31,15 @@
 </head>
   
 <body>
-  <p>One-Click Spider Solitaire 1.1
-  <button onclick="shuffle(); deal()">New</button>
-  <button onclick="deal()">Replay</button>
+  <p>One-Click Spider Solitaire 1.2
+  <button onclick="shuffle(); deal(0)">New</button>
+  <button onclick="deal(0)">Replay</button>
 <!--  <button onclick="undo()">Undo</button> -->
   Suits:<select onchange="setSuit(event);">
     <option value="1">1</option><option value="2">2</option><option value="4">4</option></select>
   </p>
 <div class=row>
-  <div id=s0 class=s onclick="next10(0)"></div>
+  <div id=s0 class=s onclick="deal(ndealt)"></div> 
   <div id=s1 class=x></div>
   <div id=f0 class=s></div>
   <div id=f1 class=s></div>
@@ -127,21 +127,24 @@ if ('serviceWorker' in navigator) {
     }
   }
 
-  function deal(){
-    clearBoard();
-    var i=0;
-		var m = setInterval(frame,30);
-    function frame() { // use interval to deal the cards slowly
-      if(i==44) {
-        clearInterval(m);
-        ndealt=44;
-        next10();
-      }else{
-        j=i%10;
-        appendCard(i,j,0); // here i is the position in the deck, 0 means face down
-        i++;
-      }
-    }
+  function deal(isdealt){ // does different things if the game has not already started
+		if(isdealt) { next10(); }
+		else {
+	    clearBoard();
+			var i=0;
+			var m = setInterval(frame,30);
+	    function frame() { // use interval to deal the cards slowly
+  	    if(i==44) {
+	        clearInterval(m);
+					ndealt=44;
+  	      next10();
+      	}else{
+        	j=i%10;
+        	appendCard(i,j,0); // here i is the position in the deck, 0 means face down
+        	i++;
+      	}
+    	}
+		}
   }
   function next10() { // put the next 10 face up
     if(ndealt<104) { // only do this if there are cards left
@@ -238,12 +241,12 @@ if ('serviceWorker' in navigator) {
   	    moveUp(j,cardNo);
   	    nmove=13;
   	  }
-  	  if(!nmove) {
+  	  if(!nmove && v1!==12) {
   	    toMove.length=0;
   	    for(z=z1;z<=z2;z++) toMove.push( parseInt(nodes[z-1].id.substr(1)) );
-    	  nmove=trySame(toMove,c1,j); // first try stack-to-stack
+    	  nmove=trySame(toMove,c1,j); // first try stack-to-stack in same suit
   	  }
-			if(!nmove && nsuit>1) tryStack(toMove,v1,j); // then consider not-same-suit columns
+			if(!nmove && nsuit>1 && v1!==12 ) tryStack(toMove,v1,j); // then consider not-same-suit columns
   	  if(!nmove) nmove=tryEmpty(toMove,j); // then consider empty columns
     }
 	}

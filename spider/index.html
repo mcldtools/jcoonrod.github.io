@@ -31,7 +31,7 @@
 </head>
   
 <body>
-  <p>One-Click Spider Solitaire 1.23
+  <p>One-Click Spider Solitaire 1.24
   <button onclick="shuffle(); deal(0)">New</button>
   <button onclick="deal()">Replay</button>
 <!--  <button onclick="undo()">Undo</button> -->
@@ -240,8 +240,8 @@ if ('serviceWorker' in navigator) {
   	  if(!nmove) {
   	    toMove.length=0;
   	    for(z=z1;z<=z2;z++) toMove.push( parseInt(nodes[z-1].id.substr(1)) );
-    	  nmove=trySame(toMove,c1,j); // first try stack-to-stack in same suit
   	  }
+			if(!nmove && v1!==12) trySame(toMove,c1,j); // first try moving to same suit
 			if(!nmove && nsuit>1 && v1!==12 ) tryStack(toMove,v1,j); // then consider not-same-suit columns
   	  if(!nmove) nmove=tryEmpty(toMove,j); // then consider empty columns
     }

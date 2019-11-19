@@ -14,7 +14,7 @@ Ann Koontz <Ann.Koontz@ri.org>
 Annelies <annelies@thehungerproject.nl>
 Annie <annie@bracusa.org>
 Antony <antony.hayanga@handinhandea.org>
- <apmandaville@irex.org>
+Alicia Mandaville <apmandaville@irex.org>
 April Burrows <april@flowofficewisdom.com>
 Alex Serrano <aserrano@ncba.coop>
 Asif Newaz <Asif.Newaz@care.org>
@@ -46,14 +46,14 @@ David Saldivar <david.saldivar@oxfam.org>
  <dcteam@thp.org>
  <deb.bhattacharya@cpd.org.bd>
  <Dereje.Adugna@gmail.com>
- <diana.delgadillo@thp.org>
- <diannec@villageef.org>
+Dianne Delgadillo <diana.delgadillo@thp.org>
+Dianne Calvi <diannec@villageef.org>
  <dlipton@irex.org>
- <donella@bracusa.org>
+Donella Rapier <donella@bracusa.org>
  <dsandoval@rootchange.org>
- Doug Steinberg <dsteinberg@ncba.coop>
- Danielle Zielinski <dzielinski@wateraidamerica.org>
- Erica Lopez-Franco <e.lopezfranco2@ids.ac.uk>
+Doug Steinberg <dsteinberg@ncba.coop>
+Danielle Zielinski <dzielinski@wateraidamerica.org>
+Erica Lopez-Franco <e.lopezfranco2@ids.ac.uk>
  <eachor@pactworld.org>
  Beth Frank <EFrank@cwsglobal.org>
 Harcourt <EHarcourt@hki.org>
@@ -63,7 +63,7 @@ Harcourt <EHarcourt@hki.org>
 Ely Keita <Ely.Keita@care.org>
 Emily Janoch <emily.janoch@care.org>
 Emily Wei <Emily.Wei@crs.org>
-Emily <emilyg@bracusa.org>
+Emily Goselin <emilyg@bracusa.org>
  <esther.hirsch@ecovillage.org>
  <etumusii@worldvision.org>
  <evan@glimmer.org>
@@ -136,11 +136,10 @@ Emily <emilyg@bracusa.org>
  <mmellish@encompassworld.com>
  <mohammad.aslam@thp.org>
  <Mojeeb.Stanikzai@gmail.com>
- <montserrat.salazar@thp.org>
- <msarr@corpsafrica.org>
+Mamadou Sarr <msarr@corpsafrica.org>
  <mzr.awazcds@yahoo.com>
- <Nachimuka.Cheepa@heifer.org>
- <nadia.rasheed@undp.org>
+Nachimuka Cheepa <Nachimuka.Cheepa@heifer.org>
+Nadia Rasheed <nadia.rasheed@undp.org>
 Nancy Wilson <Nancy.Wilson@ri.org>
 Naren <naren@pradan.net>
 Nasser <nasser@glimmer.org>
@@ -178,32 +177,29 @@ Sasa Hezir <sasahezir@effectivestates.org>
 Sasha Fisher <sasha.fisher@sparkmicrogrants.org>
 Sanjay Gurung <sgurung@mercycorps.org>
 Shakeel <Shakeel@sparkmicrogrants.org>
-Sharad <sharad@bracusa.org>
+Sharad Aggarwal <sharad@bracusa.org>
 Shubh Mahato <shubh.mahato@heifer.org>
 Lakhey <slakhey@rootchange.org>
  <smbokaboyer@pactworld.org>
- <snowrojee@unfoundation.org>
- <sukantasarkar@pradan.net>
- <sunita@loginasia.net>
- <swolthuis@ajws.org>
- <Sylvia.Hernandez@thp.org>
+Sia Nowrojee <snowrojee@unfoundation.org>
+Sukanta Sarkar <sukantasarkar@pradan.net>
+Sunita <sunita@loginasia.net>
+Sam Wolthuis <swolthuis@ajws.org>
  <syusuf@cddwestafrica.org>
  <szulueta@americasolidaria.org>
  <tadeom@villageenterprise.org>
  <Tendaic@restlessdevelopment.org>
- <teshome.shibru@thp.org>
  <themangotree.ke@gmail.com>
  <tkabore@savechildren.org>
  <tolawinjobi58@yahoo.com>
- <tonya.rawe@care.org>
- <Victoria.Watts@thp.org>
- <vinya@sarvodaya.org>
- <vkmadhavan@outlook.com>
- <vmg@das-hunger-projekt.de>
- <wendy.chamberlin@bomaproject.org>
- <william.matovu@heifer.org>
- <wloha@bread.org>
- <Xaverine.Uwimana@heifer.org>
- <yam.sharma@undp.org>
- <zekai.wang@foxmail.com>
- <zia@awazcds.org.pk
+Tonya Rawe <tonya.rawe@care.org>
+Vinya Ariyaratne <vinya@sarvodaya.org>
+V.K. Madhavan <vkmadhavan@outlook.com>
+Vincent Gründler <vmg@das-hunger-projekt.de>
+Wendy Chamberlin <wendy.chamberlin@bomaproject.org>
+William Matovu <william.matovu@heifer.org>
+Wubshet Loha <wloha@bread.org>
+Xaverine Ukimana <Xaverine.Uwimana@heifer.org>
+Yam Sharma <yam.sharma@undp.org>
+Zekai Wang <zekai.wang@foxmail.com>
+Zia <zia@awazcds.org.pk>

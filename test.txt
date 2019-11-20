@@ -140,13 +140,13 @@ Naren <naren@pradan.net>
 Nasser <nasser@glimmer.org>
 Neena <neena.joshi@heifer.org>
 Nick <nick.osborne@care.org>
- <nigerdeltawomen@gmail.com>
- <nkocaoglu@counterpart.org>
+Caroline <nigerdeltawomen@gmail.com>
+Nurhan <nkocaoglu@counterpart.org>
 Nate Magrath <nmagrath@alliancetoendhunger.org>
- <nnuce@habitathaiti.org>
- <nrimal@ncba.coop>
- <ntpelagia@gmail.com>
- <ogoofarmfarmersassn@gmai.com>
+Nunce <nnuce@habitathaiti.org>
+Rimal <nrimal@ncba.coop>
+Peggy <ntpelagia@gmail.com>
+Mariama <ogoofarmfarmersassn@gmai.com>
 Tobi Olaiya <oolaiya@terpmail.umd.edu>
 Pablo Sanchez <pablo.sanchez@thp.org>
 Pascal Djohossou <Pascal.Djohossou@thp.org>
@@ -163,7 +163,7 @@ Rita Sarin <rita.sarin@thp.org>
 Ritu Sharma <ritu@radiantadvocacy.com>
 Randy Lyness <rlyness@globalcommunities.org>
 Rebecca Middleton <rmiddleton@alliancetoendhunger.org>
- <rningsih@pactworld.org>
+Ria Ningsih <rningsih@pactworld.org>
 Samson Nzayisenga <samson.nzayisenga@crs.org>
 Samuel Afrane <samuel.afrane@thp.org>
 Sarah Lynch <Sarah.Lynch@care.org>
@@ -174,8 +174,8 @@ Sanjay Gurung <sgurung@mercycorps.org>
 Shakeel <Shakeel@sparkmicrogrants.org>
 Sharad Aggarwal <sharad@bracusa.org>
 Shubh Mahato <shubh.mahato@heifer.org>
-Lakhey <slakhey@rootchange.org>
- <smbokaboyer@pactworld.org>
+Smriti Lakhey <slakhey@rootchange.org>
+Saraounia Mboka-Boyer <smbokaboyer@pactworld.org>
 Sia Nowrojee <snowrojee@unfoundation.org>
 Sukanta Sarkar <sukantasarkar@pradan.net>
 Sunita <sunita@loginasia.net>

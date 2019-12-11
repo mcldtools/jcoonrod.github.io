@@ -31,7 +31,7 @@
 </head>
   
 <body>
-  <p>One-Click Spider Solitaire 1.25
+  <p>One-Click Spider Solitaire 1.26
   <button onclick="shuffle(); deal(0)">New</button>
   <button onclick="deal()">Replay</button>
 <!--  <button onclick="undo()">Undo</button> -->
@@ -120,7 +120,7 @@ if ('serviceWorker' in navigator) {
 	// a function to Fisher-Yate shuffle two decks together (104 cards);
   function shuffle(){
     for(i=103; i>0; i--) { // do 100 random interchanges
-      j=Math.floor(104*Math.random()*(i+1));
+      let j=Math.floor(Math.random()*(i+1));
 			[deck[i],deck[j]]=[deck[j],deck[i]];
     }
   }

@@ -31,7 +31,7 @@
 </head>
   
 <body>
-  <p>One-Click Spider Solitaire 1.27
+  <p>One-Click Spider Solitaire 1.28
   <button onclick="shuffle(); deal(0)">New</button>
   <button onclick="deal()">Replay</button>
 <!--  <button onclick="undo()">Undo</button> -->
@@ -83,7 +83,7 @@ if ('serviceWorker' in navigator) {
   deck = []; // sort order for the cards
   nfoundation=0; // how many foundation piles have gone up?
   nempty = 0; // computed # empty cascades
-  suits = ["&spadesuit;","&heart;","&diamondsuit;","&clubsuit;"];
+  suits = ["&spadesuit;","&#10084;","&diamondsuit;","&clubsuit;"];
   nsuit = 1; // default is just one suit
   faces = ["&#x1F482","&#x1F478;","&#x1F451;"]; // emojis for facecards
   vals = ['A','2','3','4','5','6','7','8','9','10','J','Q','K'];

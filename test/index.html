@@ -1,0 +1,17 @@
+<html>
+  <body>
+    <h1>Test for broken IndexedDB</h1>
+    <p>This page tests the current browser's IndexexDB to see if it contains bugs.</p>
+    <p>Possible bugs you might see: 
+      <ul>
+        <li>IndexedDB not supported at all</li>
+        <li>Samsung/HTC bug where IndexedDB doesn't have <code>onupgradeneeded</code></li>
+        <li>Apple bug in UIWebView on iOS 8 where IDBKeyRange is null rather than undefined</li>
+        <li>Apple bug in desktop Safari 7.1+ and iOS 8+ Safari where IndexedDB doesn't allow opening two databases at once and is basically unusable.</li>
+      </ul>
+    </p>
+    <pre id="display"></pre>
+    <script src="index.js"></script>
+    
+  </body>
+</html>
